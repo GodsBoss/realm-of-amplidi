@@ -10,6 +10,7 @@ export function create(game: Game): (state: State, action: any) => State {
 }
 
 export interface Game {
+  deposits: GameDeposit[]
   resources: GameResources[]
 }
 
@@ -30,9 +31,25 @@ function initialState(game: Game): State {
       }
     )
   )
+  gameState.deposits = game.deposits.map(
+    (d) => (
+      {
+        id: d.id,
+        name: d.name,
+        amount: d.initialAmount,
+        harvested: 0
+      }
+    )
+  )
   return {
     game: gameState
   }
+}
+
+interface GameDeposit {
+  id: string
+  name: string
+  initialAmount: number
 }
 
 interface GameResources {
