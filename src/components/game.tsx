@@ -1,3 +1,4 @@
+import { Deposits } from './deposits'
 import { Resources } from './resources'
 import { State } from '../store/init'
 
@@ -8,5 +9,7 @@ export const Game = (state: State) => (
     Turn: { state.game.turn }
     <h2>Resources</h2>
     <Resources list={state.game.resources} />
+    <h2>Deposits</h2>
+    <Deposits list={state.game.deposits} />
   </div>
 )
