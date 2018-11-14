@@ -1,4 +1,4 @@
-import { State as GameState, freshState } from './game/core'
+import { State as GameState } from './game/core'
 
 export function create(game: Game): (state: State, action: any) => State {
   return function(state: State, action: any) {
@@ -21,55 +21,56 @@ export interface State {
 }
 
 function initialState(game: Game): State {
-  const gameState = freshState()
-  gameState.buildings = game.buildings.map(
-    (b) => (
-      {
-        id: b.id,
-        name: b.name,
-        level: b.initialLevel,
-        visible: true // TODO: Implement visibility
-      }
-    )
-  )
-  gameState.deposits = game.deposits.map(
-    (d) => (
-      {
-        id: d.id,
-        name: d.name,
-        amount: d.initialAmount,
-        harvested: 0
-      }
-    )
-  )
-  gameState.resources = game.resources.map(
-    (r) => (
-      {
-        id: r.id,
-        name: r.name,
-        amount: r.initialAmount,
-        spent: 0,
-        visible: true // TODO: Implement visibility
-      }
-    )
-  )
-  gameState.units = game.units.map(
-    (u) => (
-      {
-        id: u.id,
-        name: u.name,
-        amount: u.initialAmount,
-        lost: 0,
-        visible: true, // TODO: Implement visibility
-        reservoir: {
-          current: u.initialReservoir,
-          wasted: 0
-        }
-      }
-    )
-  )
   return {
-    game: gameState
+    game: {
+      turn: 1,
+      buildings: game.buildings.map(
+        (b) => (
+          {
+            id: b.id,
+            name: b.name,
+            level: b.initialLevel,
+            visible: true // TODO: Implement visibility
+          }
+        )
+      ),
+      deposits: game.deposits.map(
+        (d) => (
+          {
+            id: d.id,
+            name: d.name,
+            amount: d.initialAmount,
+            harvested: 0
+          }
+        )
+      ),
+      resources: game.resources.map(
+        (r) => (
+          {
+            id: r.id,
+            name: r.name,
+            amount: r.initialAmount,
+            spent: 0,
+            visible: true // TODO: Implement visibility
+          }
+        )
+      ),
+      units: game.units.map(
+        (u) => (
+          {
+            id: u.id,
+            name: u.name,
+            amount: u.initialAmount,
+            lost: 0,
+            visible: true, // TODO: Implement visibility
+            reservoir: {
+              current: u.initialReservoir,
+              wasted: 0
+            }
+          }
+        )
+      )
+    }
   }
 }
 

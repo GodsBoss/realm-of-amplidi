@@ -1,13 +1,3 @@
-export function freshState(): State {
-  return {
-    turn: 1,
-    buildings: [],
-    deposits: [],
-    resources: [],
-    units: [],
-  }
-}
-
 export interface State {
   turn: number
   buildings: Building[]
