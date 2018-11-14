@@ -13,6 +13,7 @@ export interface Game {
   buildings: GameBuilding[]
   deposits: GameDeposit[]
   resources: GameResources[]
+  units: GameUnit[]
 }
 
 export interface State {
@@ -52,6 +53,21 @@ function initialState(game: Game): State {
       }
     )
   )
+  gameState.units = game.units.map(
+    (u) => (
+      {
+        id: u.id,
+        name: u.name,
+        amount: u.initialAmount,
+        lost: 0,
+        visible: true, // TODO: Implement visibility
+        reservoir: {
+          current: u.initialReservoir,
+          wasted: 0
+        }
+      }
+    )
+  )
   return {
     game: gameState
   }
@@ -73,4 +89,11 @@ interface GameBuilding {
   id: string
   name: string
   initialLevel: number
+}
+
+interface GameUnit {
+  id: string
+  name: string
+  initialAmount: number
+  initialReservoir: number
 }

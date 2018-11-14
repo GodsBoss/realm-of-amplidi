@@ -44,6 +44,7 @@ interface Unit {
   amount: number
   lost: number
   reservoir: UnitReservoir
+  visible: boolean
 }
 
 interface UnitReservoir {
