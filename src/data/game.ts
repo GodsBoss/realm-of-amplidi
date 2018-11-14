@@ -1,6 +1,13 @@
 import { Game } from '../store/init'
 
 export const RealmOfAmplidi: Game = {
+  buildings: [
+    {
+      id: "clay_pit",
+      name: "Clay Pit",
+      initialLevel: 1
+    }
+  ],
   deposits: [
     {
       id: "oak_tree",

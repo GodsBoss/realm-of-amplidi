@@ -20,6 +20,7 @@ interface Building {
   id: string
   name: string
   level: number
+  visible: boolean
 }
 
 interface Deposit {

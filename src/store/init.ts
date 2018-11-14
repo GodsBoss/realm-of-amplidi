@@ -10,6 +10,7 @@ export function create(game: Game): (state: State, action: any) => State {
 }
 
 export interface Game {
+  buildings: GameBuilding[]
   deposits: GameDeposit[]
   resources: GameResources[]
 }
@@ -20,6 +21,16 @@ export interface State {
 
 function initialState(game: Game): State {
   const gameState = freshState()
+  gameState.buildings = game.buildings.map(
+    (b) => (
+      {
+        id: b.id,
+        name: b.name,
+        level: b.initialLevel,
+        visible: true // TODO: Implement visibility
+      }
+    )
+  )
   gameState.resources = game.resources.map(
     (r) => (
       {
@@ -56,4 +67,10 @@ interface GameResources {
   id: string
   name: string
   initialAmount: number
+}
+
+interface GameBuilding {
+  id: string
+  name: string
+  initialLevel: number
 }
