@@ -1,7 +1,7 @@
 export function create(game: Game): (state: State, action: any) => State {
   return function(state: State, action: any) {
     if (state === undefined) {
-      return initialState
+      return initialState(game)
     }
     return state
   }
@@ -17,8 +17,11 @@ interface GameState {
   turn: number
 }
 
-const initialState = {
-  game: {
-    turn: 1
+function initialState(game: Game): State {
+  const state = {
+    game: {
+      turn: 1
+    }
   }
+  return state
 }
