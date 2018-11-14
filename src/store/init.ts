@@ -32,6 +32,16 @@ function initialState(game: Game): State {
       }
     )
   )
+  gameState.deposits = game.deposits.map(
+    (d) => (
+      {
+        id: d.id,
+        name: d.name,
+        amount: d.initialAmount,
+        harvested: 0
+      }
+    )
+  )
   gameState.resources = game.resources.map(
     (r) => (
       {
@@ -40,16 +50,6 @@ function initialState(game: Game): State {
         amount: r.initialAmount,
         spent: 0,
         visible: true // TODO: Implement visibility
-      }
-    )
-  )
-  gameState.deposits = game.deposits.map(
-    (d) => (
-      {
-        id: d.id,
-        name: d.name,
-        amount: d.initialAmount,
-        harvested: 0
       }
     )
   )
