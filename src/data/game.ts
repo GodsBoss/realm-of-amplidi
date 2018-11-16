@@ -1,4 +1,4 @@
-import { Game } from '../store/game/init'
+import { Game } from '../store/game/template'
 
 export const RealmOfAmplidi: Game = {
   buildings: [

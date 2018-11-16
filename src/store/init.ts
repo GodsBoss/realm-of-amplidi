@@ -1,6 +1,6 @@
 import { State as GameState } from './game/state'
 import { initialState as initialGameState } from './game/init'
-import { Game } from './game/init'
+import { Game } from './game/template'
 
 export function create(game: Game): (state: State, action: any) => State {
   return function(state: State, action: any) {

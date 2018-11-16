@@ -1,11 +1,5 @@
 import { State } from './state'
-
-export interface Game {
-  buildings: Building[];
-  deposits: Deposit[];
-  resources: Resource[];
-  units: Unit[];
-}
+import { Game } from './template'
 
 export function initialState(game: Game): State {
   return {
@@ -57,29 +51,4 @@ export function initialState(game: Game): State {
       )
     )
   }
-}
-
-interface Deposit {
-  id: string
-  name: string
-  initialAmount: number
-}
-
-interface Resource {
-  id: string
-  name: string
-  initialAmount: number
-}
-
-interface Building {
-  id: string
-  name: string
-  initialLevel: number
-}
-
-interface Unit {
-  id: string
-  name: string
-  initialAmount: number
-  initialReservoir: number
 }
