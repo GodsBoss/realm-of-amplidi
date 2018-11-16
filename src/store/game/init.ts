@@ -1,10 +1,10 @@
 import { State } from './core'
 
 export interface Game {
-  buildings: GameBuilding[];
-  deposits: GameDeposit[];
-  resources: GameResources[];
-  units: GameUnit[];
+  buildings: Building[];
+  deposits: Deposit[];
+  resources: Resources[];
+  units: Unit[];
 }
 
 export function initialState(game: Game): State {
@@ -59,25 +59,25 @@ export function initialState(game: Game): State {
   }
 }
 
-interface GameDeposit {
+interface Deposit {
   id: string
   name: string
   initialAmount: number
 }
 
-interface GameResources {
+interface Resources {
   id: string
   name: string
   initialAmount: number
 }
 
-interface GameBuilding {
+interface Building {
   id: string
   name: string
   initialLevel: number
 }
 
-interface GameUnit {
+interface Unit {
   id: string
   name: string
   initialAmount: number
