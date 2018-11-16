@@ -1,4 +1,4 @@
-import { State } from './core'
+import { State } from './state'
 
 export interface Game {
   buildings: Building[];

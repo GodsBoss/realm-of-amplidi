@@ -1,4 +1,4 @@
-import { State as GameState } from './game/core'
+import { State as GameState } from './game/state'
 import { initialState as initialGameState } from './game/init'
 import { Game } from './game/init'
 
