@@ -3,7 +3,7 @@ import { State } from './core'
 export interface Game {
   buildings: Building[];
   deposits: Deposit[];
-  resources: Resources[];
+  resources: Resource[];
   units: Unit[];
 }
 
@@ -65,7 +65,7 @@ interface Deposit {
   initialAmount: number
 }
 
-interface Resources {
+interface Resource {
   id: string
   name: string
   initialAmount: number
