@@ -6,21 +6,21 @@ export interface State {
   units: Unit[]
 }
 
-interface Building {
+export interface Building {
   id: string
   name: string
   level: number
   visible: boolean
 }
 
-interface Deposit {
+export interface Deposit {
   id: string
   name: string
   amount: number
   harvested: number
 }
 
-interface Resource {
+export interface Resource {
   id: string
   name: string
   amount: number
@@ -28,7 +28,7 @@ interface Resource {
   visible: boolean
 }
 
-interface Unit {
+export interface Unit {
   id: string
   name: string
   amount: number
@@ -37,7 +37,7 @@ interface Unit {
   visible: boolean
 }
 
-interface UnitReservoir {
+export interface UnitReservoir {
   current: number
   wasted: number
 }
