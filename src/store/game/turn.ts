@@ -1,8 +1,8 @@
+import { Action } from './action'
 import { Game } from './template'
 import { State } from './state'
 
-export interface NextTurnAction {
-  type: "@game/next_turn"
+export interface NextTurnAction extends Action<"@game/next_turn">{
   payload: null
 }
 

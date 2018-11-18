@@ -1,3 +1,5 @@
+import { State } from './state'
+
 export interface Game {
   buildings: Building[];
   deposits: Deposit[];
@@ -21,6 +23,8 @@ export interface Building {
   id: string
   name: string
   initialLevel: number
+  available: (state: State, nextLevel: number) => boolean
+  cost: (state: State, nextLevel: number) => Cost
 }
 
 export interface Unit {
@@ -28,4 +32,8 @@ export interface Unit {
   name: string
   initialAmount: number
   initialReservoir: number
+}
+
+export interface Cost {
+  [resourceID: string]: number
 }

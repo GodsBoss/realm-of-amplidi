@@ -1,6 +1,6 @@
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 
-export const Buildings = ({list}: {list: BuildingsProps[]}) => (
+export const Buildings = ({list, onLevelBuilding}: {list: BuildingsProps[], onLevelBuilding: (id: string) => void}) => (
   <div>
     <h2>Buildings</h2>
     <ul>
@@ -11,7 +11,7 @@ export const Buildings = ({list}: {list: BuildingsProps[]}) => (
           ).
           map(
             (building: BuildingsProps) => (
-              <Building {...building} />
+              <Building {...building} onLevelBuilding={onLevelBuilding} />
             )
           )
       }
@@ -19,9 +19,9 @@ export const Buildings = ({list}: {list: BuildingsProps[]}) => (
   </div>
 )
 
-const Building = (building: BuildingsProps) => (
+const Building = (building: BuildingsProps & OnLevelBuilding) => (
   <li key={ building.id }>
-    { building.name } Level { building.level } <button>{building.level === 0 ? 'Construct' : 'Upgrade'}</button>
+    { building.name } Level { building.level } <button onClick={() => building.onLevelBuilding(building.id)}>{building.level === 0 ? 'Construct' : 'Upgrade'}</button>
   </li>
 )
 
@@ -30,4 +30,8 @@ interface BuildingsProps {
   name: string
   level: number
   visible: boolean
+}
+
+interface OnLevelBuilding {
+  onLevelBuilding: (id: string) => void
 }
