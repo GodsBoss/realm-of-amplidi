@@ -6,12 +6,16 @@ import { Units } from './units'
 
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 
-export const Game = (state: State) => (
+export const Game = (props: Properties) => (
   <div>
-    Turn: { state.game.turn }
-    <Resources list={state.game.resources} />
-    <Deposits list={state.game.deposits} />
-    <Buildings list={state.game.buildings} />
-    <Units list={state.game.units} />
+    Turn: { props.game.turn } <button onClick={props.onNextTurn} >Next</button>
+    <Resources list={props.game.resources} />
+    <Deposits list={props.game.deposits} />
+    <Buildings list={props.game.buildings} />
+    <Units list={props.game.units} />
   </div>
 )
+
+interface Properties extends State {
+  onNextTurn: () => void
+}
