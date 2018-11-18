@@ -5,25 +5,25 @@ export interface Game {
   units: Unit[];
 }
 
-interface Deposit {
+export interface Deposit {
   id: string
   name: string
   initialAmount: number
 }
 
-interface Resource {
+export interface Resource {
   id: string
   name: string
   initialAmount: number
 }
 
-interface Building {
+export interface Building {
   id: string
   name: string
   initialLevel: number
 }
 
-interface Unit {
+export interface Unit {
   id: string
   name: string
   initialAmount: number
