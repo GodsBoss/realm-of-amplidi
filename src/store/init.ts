@@ -4,6 +4,7 @@ import { Game } from './game/template'
 import { nextTurn, NextTurnAction } from './game/turn'
 
 export function create(game: Game): (state: State, action: Action) => State {
+  const nextTurnFunc = nextTurn(game)
   return function(state: State, action: Action) {
     if (state === undefined) {
       return initialState(game)
@@ -11,7 +12,7 @@ export function create(game: Game): (state: State, action: Action) => State {
     switch (action.type) {
       case "@game/next_turn":
         return {
-          game: nextTurn(game)(state.game, action)
+          game: nextTurnFunc(state.game, action)
         }
       default:
         raiseInvalidAction(action.type)
