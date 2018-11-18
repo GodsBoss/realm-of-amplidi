@@ -11,7 +11,7 @@ export const Units = ({ list }: { list: UnitProps[]}) => (
           ).map(
             (unit) => (
               <li key={unit.id}>
-                {unit.amount} {unit.name} ({unit.reservoir.current} available)
+                {unit.amount} {unit.name} ({unit.reservoir.current} available) <button>Buy</button>
               </li>
             )
           )

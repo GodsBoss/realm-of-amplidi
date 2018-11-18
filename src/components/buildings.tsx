@@ -21,7 +21,7 @@ export const Buildings = ({list}: {list: BuildingsProps[]}) => (
 
 const Building = (building: BuildingsProps) => (
   <li key={ building.id }>
-    { building.name } Level { building.level }
+    { building.name } Level { building.level } <button>{building.level === 0 ? 'Construct' : 'Upgrade'}</button>
   </li>
 )
 
