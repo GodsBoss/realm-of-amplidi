@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state: any, ownProps: any) => (state)
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => ({
-  onNextTurn: () => dispatch(createNextTurnAction()),
-  onLevelBuilding: (id: string) => dispatch(createLevelBuildingAction(id))
-})
+const mapDispatchToProps = {
+  onNextTurn: createNextTurnAction,
+  onLevelBuilding: createLevelBuildingAction,
+}
 
 export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComp)
