@@ -1,5 +1,5 @@
-import { State } from './state'
-import { Game } from './template'
+import { State, Resource as ResourceValue, ResourceMap } from './state'
+import { Game, Resource as ResourceTemplate } from './template'
 
 export function initialState(game: Game): State {
   return {
@@ -24,17 +24,7 @@ export function initialState(game: Game): State {
         }
       )
     ),
-    resources: game.resources.map(
-      (r) => (
-        {
-          id: r.id,
-          name: r.name,
-          amount: r.initialAmount,
-          spent: 0,
-          visible: true // TODO: Implement visibility
-        }
-      )
-    ),
+    resources: initializeResources(game.resources),
     units: game.units.map(
       (u) => (
         {
@@ -51,4 +41,19 @@ export function initialState(game: Game): State {
       )
     )
   }
+}
+
+function initializeResources(templates: ResourceTemplate[]): ResourceMap {
+  const resources: ResourceMap = {}
+  templates.forEach(
+    (template: ResourceTemplate) => {
+      resources[template.id] = {
+        id: template.id,
+        amount: template.initialAmount,
+        spent: 0,
+        visible: true // TODO: Implement visibility
+      }
+    }
+  )
+  return resources
 }

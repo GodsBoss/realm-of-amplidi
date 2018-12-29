@@ -2,7 +2,7 @@ export interface State {
   turn: number
   buildings: Building[]
   deposits: Deposit[]
-  resources: Resource[]
+  resources: ResourceMap
   units: Unit[]
 }
 
@@ -22,10 +22,13 @@ export interface Deposit {
 
 export interface Resource {
   id: string
-  name: string
   amount: number
   spent: number
   visible: boolean
+}
+
+export interface ResourceMap {
+  [id: string]: Resource
 }
 
 export interface Unit {

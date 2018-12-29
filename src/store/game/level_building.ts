@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { Cost, Game, Building as GameBuilding } from './template'
-import { Building, Resource, State } from './state'
+import { Building, Resource, ResourceMap, State } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
   id: string
@@ -44,32 +44,36 @@ export function levelBuilding(game: Game) {
             }
           }
         ),
-        resources: state.resources.map(
-          (r: Resource): Resource => {
-            if (cost[r.id] === undefined) {
-              return r
-            }
-            return {
-              id: r.id,
-              name: r.name,
-              amount: r.amount - cost[r.id],
-              spent: r.spent + cost[r.id],
-              visible: true
-            }
-          }
-        )
+        resources: subtractCosts(state.resources, cost)
       }
     }
     return state
   }
 }
 
-function enoughResources(resources: Resource[], cost: Cost): boolean {
-  return resources.every(
-    (resource: Resource): boolean => {
-      return cost[resource.id] === undefined || cost[resource.id] <= resource.amount
+function enoughResources(resources: ResourceMap, cost: Cost): boolean {
+  return Object.keys(cost).every(
+    (id: string): boolean => cost[id] <= resources[id].amount
+  )
+}
+
+function subtractCosts(resources: ResourceMap, cost: Cost): ResourceMap {
+  const result: ResourceMap = {}
+  Object.keys(resources).forEach(
+    (id) => {
+      if (typeof cost[id] === "undefined") {
+        result[id] = resources[id]
+      } else {
+        result[id] = {
+          id: id,
+          amount: resources[id].amount - cost[id],
+          spent: resources[id].spent + cost[id],
+          visible: resources[id].visible
+        }
+      }
     }
   )
+  return result
 }
 
 function find<T>(haystack: T[], pred: (item: T) => boolean): T {

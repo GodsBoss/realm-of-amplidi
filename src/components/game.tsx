@@ -10,7 +10,7 @@ import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyT
 export const Game = (template: GameTemplate) => (props: Properties) => (
   <div>
     Turn: { props.game.turn } <button onClick={props.onNextTurn} >Next</button>
-    <Resources list={props.game.resources} />
+    <Resources list={template.resources} values={props.game.resources} />
     <Deposits list={props.game.deposits} />
     <Buildings list={props.game.buildings} onLevelBuilding={props.onLevelBuilding} />
     <Units list={props.game.units} />
