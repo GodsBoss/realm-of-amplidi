@@ -1,19 +1,10 @@
-import { State, Resource as ResourceValue, ResourceMap } from './state'
-import { Game, Resource as ResourceTemplate } from './template'
+import { State, BuildingMap, Resource as ResourceValue, ResourceMap } from './state'
+import { Game, Building as BuildingTemplate, Resource as ResourceTemplate } from './template'
 
 export function initialState(game: Game): State {
   return {
     turn: 1,
-    buildings: game.buildings.map(
-      (b) => (
-        {
-          id: b.id,
-          name: b.name,
-          level: b.initialLevel,
-          visible: true // TODO: Implement visibility
-        }
-      )
-    ),
+    buildings: initializeBuildings(game.buildings),
     deposits: game.deposits.map(
       (d) => (
         {
@@ -41,6 +32,20 @@ export function initialState(game: Game): State {
       )
     )
   }
+}
+
+function initializeBuildings(templates: BuildingTemplate[]): BuildingMap {
+  const buildings: BuildingMap = {}
+  templates.forEach(
+    (template) => {
+      buildings[template.id] = {
+        id: template.id,
+        level: template.initialLevel,
+        visible: true // TODO: Implement visibility
+      }
+    }
+  )
+  return buildings
 }
 
 function initializeResources(templates: ResourceTemplate[]): ResourceMap {

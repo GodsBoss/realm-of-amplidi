@@ -1,6 +1,6 @@
 export interface State {
   turn: number
-  buildings: Building[]
+  buildings: BuildingMap
   deposits: Deposit[]
   resources: ResourceMap
   units: Unit[]
@@ -8,9 +8,12 @@ export interface State {
 
 export interface Building {
   id: string
-  name: string
   level: number
   visible: boolean
+}
+
+export interface BuildingMap {
+  [id: string]: Building
 }
 
 export interface Deposit {

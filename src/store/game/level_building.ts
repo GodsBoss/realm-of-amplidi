@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { Cost, Game, Building as GameBuilding } from './template'
-import { Building, Resource, ResourceMap, State } from './state'
+import { Building, BuildingMap, Resource, ResourceMap, State } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
   id: string
@@ -15,13 +15,10 @@ export function createLevelBuildingAction(id: string): LevelBuildingAction {
 
 export function levelBuilding(game: Game) {
   return function(state: State, action: LevelBuildingAction): State {
-    const currBuilding = find(
-      state.buildings,
-      (b: Building) => b.id === action.id
-    )
-    if (currBuilding === undefined) {
+    if (typeof state.buildings[action.id] === 'undefined') {
       return state
     }
+    const currBuilding = state.buildings[action.id]
     const gameBuilding = find(
       game.buildings,
       (b: GameBuilding) => b.id === action.id
@@ -32,18 +29,7 @@ export function levelBuilding(game: Game) {
         turn: state.turn,
         deposits: state.deposits,
         units: state.units,
-        buildings: state.buildings.map(
-          (b: Building): Building => {
-            if (b.id == action.id) {
-              return {
-                id: b.id,
-                name: b.name,
-                level: b.level + 1,
-                visible: true,
-              }
-            }
-          }
-        ),
+        buildings: withLeveledBuilding(state.buildings, action.id),
         resources: subtractCosts(state.resources, cost)
       }
     }
@@ -70,6 +56,24 @@ function subtractCosts(resources: ResourceMap, cost: Cost): ResourceMap {
           spent: resources[id].spent + cost[id],
           visible: resources[id].visible
         }
+      }
+    }
+  )
+  return result
+}
+
+function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {
+  const result: BuildingMap = {}
+  Object.keys(buildings).forEach(
+    (currentID) => {
+      if (currentID === id) {
+        result[id] = {
+          id: id,
+          level: buildings[id].level + 1,
+          visible: buildings[id].visible
+        }
+      } else {
+        result[id] = buildings[id]
       }
     }
   )

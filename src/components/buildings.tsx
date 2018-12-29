@@ -1,17 +1,19 @@
+import { Building as BuildingTemplate } from '../store/game/template'
+import { BuildingMap, Building as BuildingValue } from '../store/game/state'
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 
-export const Buildings = ({list, onLevelBuilding}: {list: BuildingsProps[], onLevelBuilding: (id: string) => void}) => (
+export const Buildings = ({list, values, onLevelBuilding}: {list: BuildingTemplate[], values: BuildingMap, onLevelBuilding: OnLevelBuilding}) => (
   <div>
     <h2>Buildings</h2>
     <ul>
       {
         list.
           filter(
-            (building: BuildingsProps) => building.visible
+            (building: BuildingTemplate) => values[building.id].visible
           ).
           map(
-            (building: BuildingsProps) => (
-              <Building {...building} onLevelBuilding={onLevelBuilding} />
+            (building: BuildingTemplate) => (
+              <Building building={building} value={values[building.id]} onLevelBuilding={onLevelBuilding} />
             )
           )
       }
@@ -19,19 +21,12 @@ export const Buildings = ({list, onLevelBuilding}: {list: BuildingsProps[], onLe
   </div>
 )
 
-const Building = (building: BuildingsProps & OnLevelBuilding) => (
+const Building = ({building, value, onLevelBuilding}: {building: BuildingTemplate, value: BuildingValue, onLevelBuilding: OnLevelBuilding }) => (
   <li key={ building.id }>
-    { building.name } Level { building.level } <button onClick={() => building.onLevelBuilding(building.id)}>{building.level === 0 ? 'Construct' : 'Upgrade'}</button>
+    { building.name } Level { value.level } <button onClick={ () => { onLevelBuilding(building.id) } }>{value.level === 0 ? 'Construct' : 'Upgrade'}</button>
   </li>
 )
 
-interface BuildingsProps {
-  id: string
-  name: string
-  level: number
-  visible: boolean
-}
-
 interface OnLevelBuilding {
-  onLevelBuilding: (id: string) => void
+  (id: string): void
 }
