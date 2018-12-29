@@ -28,7 +28,6 @@ export function levelBuilding(game: Game) {
       return {
         turn: state.turn,
         deposits: state.deposits,
-        units: state.units,
         buildings: withLeveledBuilding(state.buildings, action.id),
         resources: subtractCosts(state.resources, cost)
       }

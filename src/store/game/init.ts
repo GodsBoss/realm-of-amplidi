@@ -6,22 +6,7 @@ export function initialState(game: Game): State {
     turn: 1,
     buildings: initializeBuildings(game.buildings),
     deposits: initializeDeposits(game.deposits),
-    resources: initializeResources(game.resources),
-    units: game.units.map(
-      (u) => (
-        {
-          id: u.id,
-          name: u.name,
-          amount: u.initialAmount,
-          lost: 0,
-          visible: true, // TODO: Implement visibility
-          reservoir: {
-            current: u.initialReservoir,
-            wasted: 0
-          }
-        }
-      )
-    )
+    resources: initializeResources(game.resources)
   }
 }
 

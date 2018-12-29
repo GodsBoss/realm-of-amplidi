@@ -73,13 +73,5 @@ export const RealmOfAmplidi: Game = {
       name: "Clay",
       initialAmount: 50
     }
-  ],
-  units: [
-    {
-      id: "peasant",
-      name: "Peasant",
-      initialAmount: 0,
-      initialReservoir: 0
-    }
   ]
 }

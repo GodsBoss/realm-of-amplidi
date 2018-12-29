@@ -19,8 +19,7 @@ export function nextTurn(game: Game) {
       turn: state.turn + 1,
       buildings: state.buildings,
       deposits: state.deposits,
-      resources: state.resources,
-      units: state.units
+      resources: state.resources
     }
   }
 }

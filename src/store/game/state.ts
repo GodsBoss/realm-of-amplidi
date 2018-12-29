@@ -3,7 +3,6 @@ export interface State {
   buildings: BuildingMap
   deposits: DepositMap
   resources: ResourceMap
-  units: Unit[]
 }
 
 export interface Building {
@@ -35,18 +34,4 @@ export interface Resource {
 
 export interface ResourceMap {
   [id: string]: Resource
-}
-
-export interface Unit {
-  id: string
-  name: string
-  amount: number
-  lost: number
-  reservoir: UnitReservoir
-  visible: boolean
-}
-
-export interface UnitReservoir {
-  current: number
-  wasted: number
 }

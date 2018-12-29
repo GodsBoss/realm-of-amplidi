@@ -4,7 +4,6 @@ export interface Game {
   buildings: Building[];
   deposits: Deposit[];
   resources: Resource[];
-  units: Unit[];
 }
 
 export interface Deposit {
@@ -66,13 +65,6 @@ export interface ResourceBenefit extends Benefit<"resource"> {
 }
 
 export type Benefits = DepositBenefit|ResourceBenefit
-
-export interface Unit {
-  id: string
-  name: string
-  initialAmount: number
-  initialReservoir: number
-}
 
 export interface Cost {
   [resourceID: string]: number
