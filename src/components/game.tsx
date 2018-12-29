@@ -11,7 +11,7 @@ export const Game = (template: GameTemplate) => (props: Properties) => (
   <div>
     Turn: { props.game.turn } <button onClick={props.onNextTurn} >Next</button>
     <Resources list={template.resources} values={props.game.resources} />
-    <Deposits list={props.game.deposits} />
+    <Deposits list={template.deposits} values={props.game.deposits} />
     <Buildings list={template.buildings} values={props.game.buildings} onLevelBuilding={props.onLevelBuilding} />
     <Units list={props.game.units} />
   </div>

@@ -1,20 +1,11 @@
-import { State, BuildingMap, Resource as ResourceValue, ResourceMap } from './state'
-import { Game, Building as BuildingTemplate, Resource as ResourceTemplate } from './template'
+import { State, BuildingMap, DepositMap, Resource as ResourceValue, ResourceMap } from './state'
+import { Game, Building as BuildingTemplate, Deposit as DepositTemplate, Resource as ResourceTemplate } from './template'
 
 export function initialState(game: Game): State {
   return {
     turn: 1,
     buildings: initializeBuildings(game.buildings),
-    deposits: game.deposits.map(
-      (d) => (
-        {
-          id: d.id,
-          name: d.name,
-          amount: d.initialAmount,
-          harvested: 0
-        }
-      )
-    ),
+    deposits: initializeDeposits(game.deposits),
     resources: initializeResources(game.resources),
     units: game.units.map(
       (u) => (
@@ -61,4 +52,18 @@ function initializeResources(templates: ResourceTemplate[]): ResourceMap {
     }
   )
   return resources
+}
+
+function initializeDeposits(templates: DepositTemplate[]): DepositMap {
+  const deposits: DepositMap = {}
+  templates.forEach(
+    (template) => {
+      deposits[template.id] = {
+        id: template.id,
+        amount: template.initialAmount,
+        harvested: 0
+      }
+    }
+  )
+  return deposits
 }
