@@ -2,11 +2,12 @@ import { Buildings } from './buildings'
 import { Deposits } from './deposits'
 import { Resources } from './resources'
 import { State } from '../store/init'
+import { Game as GameTemplate } from '../store/game/template'
 import { Units } from './units'
 
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 
-export const Game = (props: Properties) => (
+export const Game = (template: GameTemplate) => (props: Properties) => (
   <div>
     Turn: { props.game.turn } <button onClick={props.onNextTurn} >Next</button>
     <Resources list={props.game.resources} />

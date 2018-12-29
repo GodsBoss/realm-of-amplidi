@@ -10,10 +10,11 @@ import { createStore } from 'redux'
 window.addEventListener(
   'load',
   (ev) => {
+    const G = Game(RealmOfAmplidi)
     const store = createStore(create(RealmOfAmplidi))
     render(
       <Provider store={store}>
-        <Game />
+        <G />
       </Provider>,
       document.body
     )

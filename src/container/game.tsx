@@ -1,5 +1,6 @@
 import { Game as GameComp} from '../components/game'
 import { createLevelBuildingAction } from '../store/game/level_building'
+import { Game as GameTemplate } from '../store/game/template'
 import { createNextTurnAction } from '../store/game/turn'
 
 import { connect } from 'react-redux'
@@ -11,4 +12,4 @@ const mapDispatchToProps = {
   onLevelBuilding: createLevelBuildingAction,
 }
 
-export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComp)
+export const Game = (template: GameTemplate) => connect(mapStateToProps, mapDispatchToProps)(GameComp(template))
