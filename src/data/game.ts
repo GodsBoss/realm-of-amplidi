@@ -15,7 +15,49 @@ export const RealmOfAmplidi: Game = {
         return {
           "clay": nextLevel * nextLevel * 5
         }
-      }
+      },
+      levels: [
+        {
+          available: true,
+          cost: {},
+          benefits: [
+            {
+              type: "resource",
+              amounts: {
+                "clay": 1
+              }
+            }
+          ]
+        },
+        {
+          available: true,
+          cost: {
+            "clay": 5
+          },
+          benefits: [
+            {
+              type: "resource",
+              amounts: {
+                "clay": 1
+              }
+            }
+          ]
+        },
+        {
+          available: true,
+          cost: {
+            "clay": 20
+          },
+          benefits: [
+            {
+              type: "resource",
+              amounts: {
+                "clay": 1
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   deposits: [
