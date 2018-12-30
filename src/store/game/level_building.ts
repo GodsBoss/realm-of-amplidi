@@ -66,7 +66,8 @@ function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {
         result[id] = {
           id: id,
           level: buildings[id].level + 1,
-          visible: buildings[id].visible
+          visible: buildings[id].visible,
+          available: buildings[id].available
         }
       } else {
         result[id] = buildings[id]

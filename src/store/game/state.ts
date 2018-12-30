@@ -9,6 +9,7 @@ export interface Building {
   id: string
   level: number
   visible: boolean
+  available: boolean
 }
 
 export interface BuildingMap {

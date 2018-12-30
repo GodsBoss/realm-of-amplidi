@@ -17,7 +17,8 @@ function initializeBuildings(templates: BuildingTemplate[]): BuildingMap {
       buildings[template.id] = {
         id: template.id,
         level: template.initialLevel,
-        visible: true // TODO: Implement visibility
+        visible: true, // TODO: Implement visibility
+        available: true // TODO: Implement availability
       }
     }
   )
