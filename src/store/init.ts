@@ -4,7 +4,7 @@ import { Game } from './game/template'
 import { levelBuilding, LevelBuildingAction } from './game/level_building'
 import { nextTurn, NextTurnAction } from './game/turn'
 import { wrap } from './game/wrap'
-import { withBuildingAvailabilities } from './game/building_availability'
+import { withBuildingAvailabilities } from './game/xabilities'
 
 export function create(game: Game): (state: State, action: Action) => State {
   const nextTurnFunc = nextTurn(game)
