@@ -15,9 +15,6 @@ export function createLevelBuildingAction(id: string): LevelBuildingAction {
 
 export function levelBuilding(game: Game) {
   return function(state: State, action: LevelBuildingAction): State {
-    if (typeof state.buildings[action.id] === 'undefined') {
-      return state
-    }
     const currBuilding = state.buildings[action.id]
     const gameBuilding = find(
       game.buildings,
