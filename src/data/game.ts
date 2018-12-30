@@ -8,11 +8,6 @@ export const RealmOfAmplidi: Game = {
       id: "clay_pit",
       name: "Clay Pit",
       initialLevel: 1,
-      cost: (state: State, nextLevel: number): Cost => {
-        return {
-          "clay": nextLevel * nextLevel * 5
-        }
-      },
       levels: [
         {
           available: true,

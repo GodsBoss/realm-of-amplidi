@@ -1,5 +1,5 @@
 import { Action } from './action'
-import { Cost, Game, Building as GameBuilding } from './template'
+import { Cost, Game, Building as GameBuilding, ResourceAmounts } from './template'
 import { Building, BuildingMap, Resource, ResourceMap, State } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
@@ -23,7 +23,7 @@ export function levelBuilding(game: Game) {
       game.buildings,
       (b: GameBuilding) => b.id === action.id
     )
-    const cost = gameBuilding.cost(state, currBuilding.level + 1)
+    const cost = gameBuilding.levels[currBuilding.level].cost
     if (enoughResources(state.resources, cost)) {
       return {
         turn: state.turn,
@@ -36,13 +36,13 @@ export function levelBuilding(game: Game) {
   }
 }
 
-function enoughResources(resources: ResourceMap, cost: Cost): boolean {
+function enoughResources(resources: ResourceMap, cost: ResourceAmounts): boolean {
   return Object.keys(cost).every(
     (id: string): boolean => cost[id] <= resources[id].amount
   )
 }
 
-function subtractCosts(resources: ResourceMap, cost: Cost): ResourceMap {
+function subtractCosts(resources: ResourceMap, cost: ResourceAmounts): ResourceMap {
   const result: ResourceMap = {}
   Object.keys(resources).forEach(
     (id) => {

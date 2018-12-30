@@ -30,7 +30,6 @@ export interface Building {
   id: string
   name: string
   initialLevel: number
-  cost: (state: State, nextLevel: number) => Cost
 
   // levels contains all the building's levels. By default, every building the
   // player has is level 0 implicitly, so this array is indexed such as that
