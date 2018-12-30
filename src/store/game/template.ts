@@ -49,8 +49,44 @@ export interface BuildingLevel {
   benefits: Benefits[]
 }
 
-export type Requirement = true
+export type Requirement = boolean | ComparisonRequirement | MultiRequirement
 
+export function isConstantRequirement(value: Requirement): value is boolean {
+  return typeof value === 'boolean'
+}
+
+export interface ComplexRequirement<T extends string> {
+  type: T
+}
+
+export type MultiRequirementOperators = "and" | "or"
+
+export interface MultiRequirement extends ComplexRequirement<MultiRequirementOperators> {
+  items: Requirement[]
+}
+
+export interface ComparisonRequirement extends ComplexRequirement<"comparison">{
+  op: ComparisonOperator
+  left: ComparisonValue
+  right: ComparisonValue
+}
+
+export function isComparisonRequirement(value: Requirement): value is ComparisonRequirement {
+  return (<ComplexRequirement<string>>value).type === 'comparison'
+}
+
+export type ComparisonOperator = "<" | "<=" | "==" | ">=" | ">"
+
+export type ComparisonValue = number | ComparisonStateValue
+
+export function isConstantComparisonValue(value: ComparisonValue): value is number {
+  return typeof value === 'number'
+}
+
+export interface ComparisonStateValue {
+  type: string
+  id: string
+}
 
 interface Benefit<T extends string> {
   type: T

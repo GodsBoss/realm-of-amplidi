@@ -39,7 +39,15 @@ export const RealmOfAmplidi: Game = {
           (level: number): BuildingLevel => (
             {
               available: true,
-              visible: true,
+              visible: {
+                "type": "comparison",
+                "op": ">=",
+                "left": {
+                  "type": "building_level",
+                  "id": "clay_pit"
+                },
+                "right": 3
+              },
               cost: {
                 "clay": square(level-1) * 15
               },
