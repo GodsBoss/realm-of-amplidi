@@ -23,7 +23,7 @@ export const Buildings = ({list, values, onLevelBuilding}: {list: BuildingTempla
 
 const Building = ({building, value, onLevelBuilding}: {building: BuildingTemplate, value: BuildingValue, onLevelBuilding: OnLevelBuilding }) => (
   <li key={ building.id }>
-    { building.name } Level { value.level } <button onClick={ () => { onLevelBuilding(building.id) } }>{value.level === 0 ? 'Construct' : 'Upgrade'}</button>
+    { building.name } Level { value.level } <button onClick={ () => { onLevelBuilding(building.id) } } disabled={ !value.available }>{value.level === 0 ? 'Construct' : 'Upgrade'}</button>
   </li>
 )
 
