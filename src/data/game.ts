@@ -63,6 +63,19 @@ export const RealmOfAmplidi: Game = {
           )
         )
       )
+    },
+    {
+      id: "quarry",
+      name: "Quarry",
+      initialLevel: 0,
+      levels: [
+        {
+          available: false,
+          visible: false,
+          cost: {},
+          benefits: []
+        }
+      ]
     }
   ],
   deposits: [
@@ -70,6 +83,11 @@ export const RealmOfAmplidi: Game = {
       id: "oak_tree",
       name: "Oak Tree",
       initialAmount: 100
+    },
+    {
+      id: "rock",
+      name: "Rock",
+      initialAmount: 0
     }
   ],
   resources: [
@@ -78,6 +96,20 @@ export const RealmOfAmplidi: Game = {
       name: "Clay",
       initialAmount: 50,
       visible: true
+    },
+    {
+      id: "stone",
+      name: "Stone",
+      initialAmount: 0,
+      visible: {
+        "type": "comparison",
+        "op": ">",
+        "left": {
+          "type": "resource.amount",
+          "id": "clay"
+        },
+        "right": 100
+      }
     }
   ]
 }
