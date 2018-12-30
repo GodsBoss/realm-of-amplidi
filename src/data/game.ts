@@ -13,6 +13,7 @@ export const RealmOfAmplidi: Game = {
           (level: number): BuildingLevel => (
             {
               available: true,
+              visible: true,
               cost: {
                 "clay": square(level-1) *5
               },
@@ -38,6 +39,7 @@ export const RealmOfAmplidi: Game = {
           (level: number): BuildingLevel => (
             {
               available: true,
+              visible: true,
               cost: {
                 "clay": square(level-1) * 15
               },
@@ -66,7 +68,8 @@ export const RealmOfAmplidi: Game = {
     {
       id: "clay",
       name: "Clay",
-      initialAmount: 50
+      initialAmount: 50,
+      visible: true
     }
   ]
 }

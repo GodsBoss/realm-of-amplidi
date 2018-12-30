@@ -20,6 +20,7 @@ export interface Resource {
   id: string
   name: string
   initialAmount: number
+  visible: Requirement
 }
 
 export interface ResourceAmounts {
@@ -40,6 +41,7 @@ export interface Building {
 
 export interface BuildingLevel {
   available: Requirement
+  visible: Requirement
   cost: ResourceAmounts
 
   // benefits are what a building provides per turn. Benefits are cumulative,
