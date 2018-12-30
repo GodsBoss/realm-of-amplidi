@@ -15,11 +15,15 @@ export function createNextTurnAction(): NextTurnAction {
 
 export function nextTurn(game: Game) {
   return (state: State, action: NextTurnAction): State => {
-    return {
-      turn: state.turn + 1,
-      buildings: state.buildings,
-      deposits: state.deposits,
-      resources: state.resources
-    }
+    return increaseTurn(state)
   }
 }
+
+const increaseTurn = (state: State): State => (
+  {
+    turn: state.turn + 1,
+    buildings: state.buildings,
+    deposits: state.deposits,
+    resources: state.resources
+  }
+)
