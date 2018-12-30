@@ -8,7 +8,8 @@ export const withBuildingAvailabilities = (game: Game) => (state: State): State 
   Object.keys(state.buildings).forEach(
     (id) => {
       let available = true
-      if (state.buildings[id].level >= find(game.buildings, (building) => building.id === id).levels.length) {
+      const buildingTemplate = find(game.buildings, (building) => building.id === id)
+      if (state.buildings[id].level >= buildingTemplate.levels.length) {
         available = false
       }
       buildings[id] = {
