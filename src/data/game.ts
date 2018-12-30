@@ -49,7 +49,7 @@ export const RealmOfAmplidi: Game = {
                 "right": 3
               },
               cost: {
-                "clay": square(level-1) * 15
+                "clay": square(level) * 15
               },
               benefits: [
                 {
