@@ -76,6 +76,46 @@ export const RealmOfAmplidi: Game = {
           benefits: []
         }
       ]
+    },
+    {
+      id: "sawmill",
+      name: "Sawmill",
+      initialLevel: 0,
+      levels: [].concat(
+        [
+          isBuildingLevel(
+            {
+              available: true,
+              visible: {
+                "type": "comparison",
+                "op": ">",
+                "left": {
+                  "type": "building.level",
+                  "id": "oak_forester"
+                },
+                "right": 0
+              },
+              benefits: [],
+              cost: {
+                "clay": 100
+              }
+            }
+          )
+        ],
+        range(2, 3).map(
+          (n: number): BuildingLevel => (
+            {
+              available: true,
+              visible: true,
+              benefits: [],
+              cost: {
+                "clay": n * 100,
+                "oak_wood": n * 10
+              }
+            }
+          )
+        )
+      )
     }
   ],
   deposits: [
@@ -125,4 +165,10 @@ function range(start: number, end: number): number[] {
 
 function square(n: number): number {
   return n * n
+}
+
+// isBuildingLevel acts as a typeguard for BuildingLevel because of the strange
+// TypeScript handling of Array.prototype.concat.
+function isBuildingLevel(level: BuildingLevel): BuildingLevel {
+  return level
 }
