@@ -83,15 +83,54 @@ export function isComparisonRequirement(value: Requirement): value is Comparison
 
 export type ComparisonOperator = "<" | "<=" | "==" | ">=" | ">"
 
-export type ComparisonValue = number | ComparisonStateValue
+export type ComparisonValue =
+  number |
+  BuildingLevelStateValue |
+  DepositAmountStateValue |
+  DepositHarvestedStateValue |
+  ResourceAmountStateValue |
+  ResourceSpentStateValue
 
 export function isConstantComparisonValue(value: ComparisonValue): value is number {
   return typeof value === 'number'
 }
 
-export interface ComparisonStateValue {
-  type: string
-  id: string
+export interface StateValue<T extends string, IDType> {
+  type: T
+  id: IDType
+}
+
+// TODO: Find a way to generically check for StateValue<X, Y> instead of having
+// several functions which structurally identical code.
+
+export interface BuildingLevelStateValue extends StateValue<"building.level", BuildingID>{}
+
+export function isBuildingLevelStateValue(value: ComparisonValue): value is BuildingLevelStateValue {
+  return (<StateValue<string, any>>value).type === 'building.level'
+}
+
+export interface DepositAmountStateValue extends StateValue<"deposit.amount", DepositID>{}
+
+export function isDepositAmountStateValue(value: ComparisonValue): value is DepositAmountStateValue {
+  return (<StateValue<string, any>>value).type === 'deposit.amount'
+}
+
+export interface DepositHarvestedStateValue extends StateValue<"deposit.harvested", DepositID>{}
+
+export function isDepositHarvestedStateValue(value: ComparisonValue): value is DepositHarvestedStateValue {
+  return (<StateValue<string, any>>value).type === 'deposit.harvested'
+}
+
+export interface ResourceAmountStateValue extends StateValue<"resource.amount", ResourceID>{}
+
+export function isResourceAmountStateValue(value: ComparisonValue): value is ResourceAmountStateValue {
+  return (<StateValue<string, any>>value).type === 'resource.amount'
+}
+
+export interface ResourceSpentStateValue extends StateValue<"resource.spent", ResourceID>{}
+
+export function isResourceSpentStateValue(value: ComparisonValue): value is ResourceSpentStateValue {
+  return (<StateValue<string, any>>value).type === 'resource.spent'
 }
 
 interface Benefit<T extends string> {

@@ -43,7 +43,7 @@ export const RealmOfAmplidi: Game = {
                 "type": "comparison",
                 "op": ">=",
                 "left": {
-                  "type": "building_level",
+                  "type": "building.level",
                   "id": "clay_pit"
                 },
                 "right": 3
