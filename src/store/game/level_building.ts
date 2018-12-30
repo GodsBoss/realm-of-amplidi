@@ -64,14 +64,14 @@ function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {
   Object.keys(buildings).forEach(
     (currentID) => {
       if (currentID === id) {
-        result[id] = {
+        result[currentID] = {
           id: id,
           level: buildings[id].level + 1,
           visible: buildings[id].visible,
           available: buildings[id].available
         }
       } else {
-        result[id] = buildings[id]
+        result[currentID] = buildings[currentID]
       }
     }
   )
