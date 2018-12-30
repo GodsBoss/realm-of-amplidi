@@ -71,6 +71,10 @@ export interface MultiRequirement extends ComplexRequirement<MultiRequirementOpe
   items: Requirement[]
 }
 
+export function isMultiRequirement(req: Requirement): req is MultiRequirement {
+  return (<MultiRequirement>req).type === 'and' || (<MultiRequirement>req).type === 'and'
+}
+
 export interface ComparisonRequirement extends ComplexRequirement<"comparison">{
   op: ComparisonOperator
   left: ComparisonValue
@@ -82,6 +86,23 @@ export function isComparisonRequirement(value: Requirement): value is Comparison
 }
 
 export type ComparisonOperator = "<" | "<=" | "==" | ">=" | ">"
+
+export function comparison(op: ComparisonOperator): (left: number, right: number) => boolean {
+  switch(op) {
+    case "<":
+      return (left, right) => left < right
+    case "<=":
+      return (left, right) => left <= right
+    case "==":
+      return (left, right) => left == right
+    case ">=":
+      return (left, right) => left >= right
+    case ">":
+      return (left, right) => left > right
+    default:
+      const unreachable: never = op
+  }
+}
 
 export type ComparisonValue =
   number |

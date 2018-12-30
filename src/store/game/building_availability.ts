@@ -1,3 +1,4 @@
+import { fullfilled } from './check_requirements'
 import { find } from '../../util'
 import { State, BuildingMap } from './state'
 import { Game } from './template'
@@ -11,6 +12,9 @@ export const withBuildingAvailabilities = (game: Game) => (state: State): State 
       const buildingTemplate = find(game.buildings, (building) => building.id === id)
       if (state.buildings[id].level >= buildingTemplate.levels.length) {
         available = false
+      }
+      if (available) {
+        available = fullfilled(buildingTemplate.levels[state.buildings[id].level].available, state)
       }
       buildings[id] = {
         id: id,
