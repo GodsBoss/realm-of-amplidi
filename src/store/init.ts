@@ -4,12 +4,12 @@ import { Game } from './game/template'
 import { levelBuilding, LevelBuildingAction } from './game/level_building'
 import { nextTurn, NextTurnAction } from './game/turn'
 import { wrap } from './game/wrap'
-import { withBuildingAvailabilities } from './game/xabilities'
+import { withXabilities } from './game/xabilities'
 
 export function create(game: Game): (state: State, action: Action) => State {
   const nextTurnFunc = nextTurn(game)
   const levelBuildingFunc = levelBuilding(game)
-  const aftermath = wrap(withBuildingAvailabilities(game))
+  const aftermath = wrap(withXabilities(game))
   return function(state: State, action: Action) {
     if (state === undefined) {
       return {

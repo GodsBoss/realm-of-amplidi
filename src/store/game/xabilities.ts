@@ -1,9 +1,9 @@
 import { fullfilled } from './check_requirements'
 import { find } from '../../util'
-import { State, BuildingMap } from './state'
+import { State, BuildingMap, ResourceMap } from './state'
 import { Game } from './template'
 
-export const withBuildingAvailabilities = (game: Game) => (state: State): State => {
+export const withXabilities = (game: Game) => (state: State): State => {
   const buildings: BuildingMap = {}
 
   Object.keys(state.buildings).forEach(
@@ -25,10 +25,24 @@ export const withBuildingAvailabilities = (game: Game) => (state: State): State 
     }
   )
 
+  const resources: ResourceMap = {}
+
+  Object.keys(state.resources).forEach(
+    (id) => {
+      const resourceTemplate = find(game.resources, (resource) => resource.id === id)
+      resources[id] = {
+        id: id,
+        amount: state.resources[id].amount,
+        spent: state.resources[id].spent,
+        visible: fullfilled(resourceTemplate.visible, state)
+      }
+    }
+  )
+
   return {
     turn: state.turn,
     deposits: state.deposits,
-    resources: state.resources,
+    resources: resources,
     buildings: buildings
   }
 }
