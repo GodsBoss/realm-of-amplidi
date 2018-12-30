@@ -19,7 +19,7 @@ export const withBuildingAvailabilities = (game: Game) => (state: State): State 
       buildings[id] = {
         id: id,
         level: state.buildings[id].level,
-        visible: state.buildings[id].visible,
+        visible: fullfilled(buildingTemplate.levels[Math.min(state.buildings[id].level, buildingTemplate.levels.length - 1)].visible, state),
         available: available
       }
     }
