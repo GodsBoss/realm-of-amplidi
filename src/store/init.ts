@@ -1,5 +1,5 @@
 import { State as GameState } from './game/state'
-import { initialState as initialGameState } from './game/init'
+import { initialState } from './game/init'
 import { Game } from './game/template'
 import { levelBuilding, LevelBuildingAction } from './game/level_building'
 import { nextTurn, NextTurnAction } from './game/turn'
@@ -12,7 +12,9 @@ export function create(game: Game): (state: State, action: Action) => State {
   const aftermath = wrap(withBuildingAvailabilities(game))
   return function(state: State, action: Action) {
     if (state === undefined) {
-      return initialState(game)
+      return {
+        game: aftermath(initialState(game))
+      }
     }
     switch (action.type) {
       case "@game/next_turn":
@@ -35,12 +37,6 @@ function raiseInvalidAction(value: never) {
 }
 
 type Action = NextTurnAction | LevelBuildingAction
-
-function initialState(game: Game): State {
-  return {
-    game: initialGameState(game)
-  }
-}
 
 export interface State {
   game: GameState
