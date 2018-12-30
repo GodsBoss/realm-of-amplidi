@@ -44,18 +44,14 @@ const withIncreasedDeposits = (game: Game) => (state: State): State => {
           ).map(
             (benefit) => <DepositAmounts>benefit.amounts
           )
-        ).reduce(
-          (accumulator: DepositAmounts[], current: DepositAmounts[]) => accumulator.concat(current),
-          []
-        )
-      ).reduce(
-        (accumulator: DepositAmounts[], current: DepositAmounts[]) => accumulator.concat(current),
-        []
-      )
+        ).reduce(flatten, [])
+      ).reduce(flatten, [])
     ),
     resources: state.resources
   }
 }
+
+const flatten = <T>(acc: T[], curr: T[]) => acc.concat(curr)
 
 export function addDeposits(map: DepositMap, list: DepositAmounts[]): DepositMap {
   const result: DepositMap = {}
