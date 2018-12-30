@@ -95,7 +95,14 @@ export const RealmOfAmplidi: Game = {
                 },
                 "right": 0
               },
-              benefits: [],
+              benefits: [
+                {
+                  "type": "processing",
+                  "amounts": {
+                    "chopping": 2
+                  }
+                }
+              ],
               cost: {
                 "clay": 100
               }
@@ -107,7 +114,14 @@ export const RealmOfAmplidi: Game = {
             {
               available: true,
               visible: true,
-              benefits: [],
+              benefits: [
+                {
+                  "type": "processing",
+                  "amounts": {
+                    "chopping": 2
+                  }
+                }
+              ],
               cost: {
                 "clay": n * 100,
                 "oak_wood": n * 10
@@ -122,12 +136,16 @@ export const RealmOfAmplidi: Game = {
     {
       id: "oak_tree",
       name: "Oak Tree",
-      initialAmount: 100
+      initialAmount: 100,
+      processedBy: ["chopping"],
+      resourceID: "oak_wood"
     },
     {
       id: "rock",
       name: "Rock",
-      initialAmount: 0
+      initialAmount: 0,
+      processedBy: [],
+      resourceID: "stone"
     }
   ],
   resources: [
@@ -135,6 +153,12 @@ export const RealmOfAmplidi: Game = {
       id: "clay",
       name: "Clay",
       initialAmount: 50,
+      visible: true
+    },
+    {
+      id: "oak_wood",
+      name: "Oak Wood",
+      initialAmount: 0,
       visible: true
     },
     {

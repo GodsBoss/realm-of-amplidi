@@ -8,10 +8,16 @@ export interface Game {
 
 export type DepositID = string
 
+export type ProcessingID = string
+
 export interface Deposit {
   id: DepositID
   name: string
   initialAmount: number
+  processedBy: ProcessingID[]
+
+  // resourceID is the ID of the resource the deposit is processed to.
+  resourceID: ResourceID
 }
 
 export interface DepositAmounts {
@@ -166,7 +172,15 @@ export interface ResourceBenefit extends Benefit<"resource"> {
   amounts: ResourceAmounts
 }
 
-export type Benefits = DepositBenefit|ResourceBenefit
+export interface ProcessingAmounts {
+  [id: string]: number
+}
+
+export interface ProcessingBenefit extends Benefit<"processing"> {
+  amounts: ProcessingAmounts
+}
+
+export type Benefits = DepositBenefit|ResourceBenefit|ProcessingBenefit
 
 export interface Cost {
   [resourceID: string]: number

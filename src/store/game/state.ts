@@ -20,6 +20,7 @@ export interface Deposit {
   id: string
   amount: number
   harvested: number
+  processing: number
 }
 
 export interface DepositMap {

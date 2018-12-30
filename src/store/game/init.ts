@@ -47,7 +47,8 @@ function initializeDeposits(templates: DepositTemplate[]): DepositMap {
       deposits[template.id] = {
         id: template.id,
         amount: template.initialAmount,
-        harvested: 0
+        harvested: 0,
+        processing: 0
       }
     }
   )

@@ -1,6 +1,7 @@
 import { Action } from './action'
-import { Game, DepositAmounts, ResourceAmounts } from './template'
+import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID } from './template'
 import { State, DepositMap, ResourceMap } from './state'
+import { find } from '../../util'
 
 export interface NextTurnAction extends Action<"@game/next_turn">{
   payload: null
@@ -16,8 +17,9 @@ export function createNextTurnAction(): NextTurnAction {
 export function nextTurn(game: Game) {
   const plusDeposits = withIncreasedDeposits(game)
   const plusResources = withIncreasedResources(game)
+  const harvest = withProcessedDeposits(game)
   return (state: State, action: NextTurnAction): State => {
-    return plusResources(plusDeposits(increaseTurn(state)))
+    return harvest(plusResources(plusDeposits(increaseTurn(state))))
   }
 }
 
@@ -61,7 +63,8 @@ export function addDeposits(map: DepositMap, list: DepositAmounts[]): DepositMap
       result[id] = {
         id: id,
         amount: map[id].amount,
-        harvested: map[id].harvested
+        harvested: map[id].harvested,
+        processing: map[id].processing
       }
     }
   )
@@ -121,4 +124,119 @@ function addResources(map: ResourceMap, list: ResourceAmounts[]): ResourceMap {
     }
   )
   return result
+}
+
+const withProcessedDeposits = (game: Game) => (state: State): State => {
+  // TODO: This massive function should be broken!
+
+  // deposits is a copy of state.deposits. TODO: Seems reusable, move elsewhere.
+  const deposits: DepositMap = {}
+  Object.keys(state.deposits).forEach(
+    (depositID) => {
+      deposits[depositID] = {
+        id: depositID,
+        amount: state.deposits[depositID].amount,
+        harvested: state.deposits[depositID].harvested,
+        processing: state.deposits[depositID].processing
+      }
+    }
+  )
+
+  // resources is a copy of state.resources. TODO: Seems reusable, move elsewhere.
+  const resources: ResourceMap = {}
+  Object.keys(state.resources).forEach(
+    (resourceID) => {
+      resources[resourceID] = {
+        id: resourceID,
+        amount: state.resources[resourceID].amount,
+        spent: state.resources[resourceID].spent,
+        visible: state.resources[resourceID].visible
+      }
+    }
+  )
+
+  // processing are the combined processing amounts of all benefits the player
+  // gets via buildings.
+  // TODO: Gathering and flattening benefits seems to reoccur, move elsewhere.
+  const processing = game.buildings.map(
+    (building) => building.levels.filter(
+      (level, index) => index < state.buildings[building.id].level
+    ).map(
+      (level) => level.benefits.filter(
+        (benefit) => benefit.type === 'processing'
+      ).map(
+        (benefit) => <ProcessingAmounts>benefit.amounts
+      )
+    ).reduce(flatten, [])
+  ).reduce(flatten, []).reduce(
+    (previous: ProcessingAmounts, current: ProcessingAmounts) => {
+      Object.keys(current).forEach(
+        (id) => {
+          if (typeof previous[id] !== 'number') {
+            previous[id] = 0
+          }
+          previous[id] += current[id]
+        }
+      )
+      return previous
+    },
+    {}
+  )
+
+  // depositIDsByProcessing contains a mapping from process IDs to deposit IDs.
+  // It contains only:
+  // - Deposit IDs for deposits with an amount > 0
+  // - Processing IDs for which there is processing.
+  // - Processing IDs for which there is at least one deposit to process.
+  const depositIDsByProcessing: {
+    [id: string]: DepositID[]
+  } = {}
+
+  game.deposits.filter(
+    (deposit) => state.deposits[deposit.id].amount > 0
+  ).forEach(
+    (deposit) => {
+      deposit.processedBy.forEach(
+        (processID) => {
+          if (typeof processing[processID] !== 'number' ) {
+            return
+          }
+          if (depositIDsByProcessing[processID] === undefined) {
+            depositIDsByProcessing[processID] = []
+          }
+          depositIDsByProcessing[processID].push(deposit.id)
+        }
+      )
+    }
+  )
+
+  // Add the processing amount to every deposit.
+  Object.keys(depositIDsByProcessing).forEach(
+    (processingID) => {
+      const processingPerDeposit = processing[processingID] / depositIDsByProcessing[processingID].length
+      depositIDsByProcessing[processingID].forEach(
+        (depositID) => {
+          deposits[depositID].processing += processingPerDeposit
+        }
+      )
+    }
+  )
+
+  // Now take the deposits and apply processing to them.
+  Object.keys(deposits).forEach(
+    (depositID) => {
+      const harvest = Math.floor(Math.min(deposits[depositID].amount, deposits[depositID].processing))
+      deposits[depositID].processing -= harvest
+      deposits[depositID].amount -= harvest
+      deposits[depositID].harvested += harvest
+      resources[find(game.deposits, (deposit) => deposit.id === depositID).resourceID].amount += harvest
+    }
+  )
+
+  return {
+    turn: state.turn,
+    buildings: state.buildings,
+    deposits: deposits,
+    resources: resources
+  }
 }
