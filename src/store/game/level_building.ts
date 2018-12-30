@@ -1,4 +1,5 @@
 import { Action } from './action'
+import { find } from '../../util'
 import { Cost, Game, Building as GameBuilding, ResourceAmounts } from './template'
 import { Building, BuildingMap, Resource, ResourceMap, State } from './state'
 
@@ -75,13 +76,4 @@ function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {
     }
   )
   return result
-}
-
-function find<T>(haystack: T[], pred: (item: T) => boolean): T {
-  for(let i = 0; i < haystack.length; i++) {
-    if (pred(haystack[i])) {
-      return haystack[i]
-    }
-  }
-  return undefined
 }
