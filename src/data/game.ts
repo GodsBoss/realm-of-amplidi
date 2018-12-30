@@ -28,6 +28,31 @@ export const RealmOfAmplidi: Game = {
           )
         )
       ),
+    },
+    {
+      id: "oak_forester",
+      name: "Oak Forester",
+      initialLevel: 0,
+      levels: [].concat(
+        range(1, 3).map(
+          (level: number): BuildingLevel => (
+            {
+              available: true,
+              cost: {
+                "clay": square(level-1) * 15
+              },
+              benefits: [
+                {
+                  type: "deposit",
+                  amounts: {
+                    "oak_tree": 1
+                  }
+                }
+              ]
+            }
+          )
+        )
+      )
     }
   ],
   deposits: [
