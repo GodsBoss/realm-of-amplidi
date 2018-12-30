@@ -30,7 +30,6 @@ export interface Building {
   id: string
   name: string
   initialLevel: number
-  available: (state: State, nextLevel: number) => boolean
   cost: (state: State, nextLevel: number) => Cost
 
   // levels contains all the building's levels. By default, every building the
