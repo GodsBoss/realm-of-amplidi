@@ -6,8 +6,10 @@ export interface Game {
   resources: Resource[];
 }
 
+export type DepositID = string
+
 export interface Deposit {
-  id: string
+  id: DepositID
   name: string
   initialAmount: number
 }
@@ -16,8 +18,10 @@ export interface DepositAmounts {
   [depositID: string]: number
 }
 
+export type ResourceID = string
+
 export interface Resource {
-  id: string
+  id: ResourceID
   name: string
   initialAmount: number
   visible: Requirement
@@ -27,8 +31,10 @@ export interface ResourceAmounts {
   [resourceID: string]: number
 }
 
+export type BuildingID = string
+
 export interface Building {
-  id: string
+  id: BuildingID
   name: string
   initialLevel: number
 
