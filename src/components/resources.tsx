@@ -7,10 +7,7 @@ export const Resources = ({ list, values }: { list: ResourceTemplate[], values: 
     <h2>Resources</h2>
     <ul>
       {
-        list.filter(
-          (r) => values[r.id].visible
-        ).
-        map(
+        list.map(
           (r) => <Resource r={ r } v={ values[r.id] }/>
         )
       }
@@ -19,7 +16,7 @@ export const Resources = ({ list, values }: { list: ResourceTemplate[], values: 
 )
 
 const Resource = ({r, v}: { r: ResourceTemplate, v: ResourceValue }) => (
-  <li key={r.id}>
+  <li key={r.id} className={ v.visible ? "visible" : "invisible" }>
     {v.amount} {r.name}
   </li>
 )
