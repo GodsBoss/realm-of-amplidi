@@ -7,22 +7,18 @@ export const Buildings = ({list, values, onLevelBuilding}: {list: BuildingTempla
     <h2>Buildings</h2>
     <ul>
       {
-        list.
-          filter(
-            (building: BuildingTemplate) => values[building.id].visible
-          ).
-          map(
-            (building: BuildingTemplate) => (
-              <Building building={building} value={values[building.id]} onLevelBuilding={onLevelBuilding} />
-            )
+        list.map(
+          (building: BuildingTemplate) => (
+            <Building building={building} value={values[building.id]} onLevelBuilding={onLevelBuilding} />
           )
+        )
       }
     </ul>
   </div>
 )
 
 const Building = ({building, value, onLevelBuilding}: {building: BuildingTemplate, value: BuildingValue, onLevelBuilding: OnLevelBuilding }) => (
-  <li key={ building.id }>
+  <li key={ building.id } className={ value.visible ? 'visible' : 'invisible' }>
     { building.name } Level { value.level } <button onClick={ () => { onLevelBuilding(building.id) } } disabled={ !value.available }>{value.level === 0 ? 'Construct' : 'Upgrade'}</button>
   </li>
 )
