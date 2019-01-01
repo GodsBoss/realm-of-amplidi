@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID } from './template'
-import { State, DepositMap, ResourceMap } from './state'
+import { State, DepositMap, ResourceMap, mapDeposits, mapResources } from './state'
 import { find } from '../../util'
 
 export interface NextTurnAction extends Action<"@game/next_turn">{
@@ -129,31 +129,11 @@ function addResources(map: ResourceMap, list: ResourceAmounts[]): ResourceMap {
 const withProcessedDeposits = (game: Game) => (state: State): State => {
   // TODO: This massive function should be broken!
 
-  // deposits is a copy of state.deposits. TODO: Seems reusable, move elsewhere.
-  const deposits: DepositMap = {}
-  Object.keys(state.deposits).forEach(
-    (depositID) => {
-      deposits[depositID] = {
-        id: depositID,
-        amount: state.deposits[depositID].amount,
-        harvested: state.deposits[depositID].harvested,
-        processing: state.deposits[depositID].processing
-      }
-    }
-  )
+  // deposits is a copy of state.deposits.
+  const deposits = mapDeposits(state.deposits)
 
-  // resources is a copy of state.resources. TODO: Seems reusable, move elsewhere.
-  const resources: ResourceMap = {}
-  Object.keys(state.resources).forEach(
-    (resourceID) => {
-      resources[resourceID] = {
-        id: resourceID,
-        amount: state.resources[resourceID].amount,
-        spent: state.resources[resourceID].spent,
-        visible: state.resources[resourceID].visible
-      }
-    }
-  )
+  // resources is a copy of state.resources.
+  const resources = mapResources(state.resources)
 
   // processing are the combined processing amounts of all benefits the player
   // gets via buildings.
