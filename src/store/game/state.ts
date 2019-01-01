@@ -12,6 +12,16 @@ export interface Building {
   available: boolean
 }
 
+// sameBuilding returns a clone of a building.
+export function sameBuilding(building: Building): Building {
+  return {
+    id: building.id,
+    level: building.level,
+    visible: building.visible,
+    available: building.available
+  }
+}
+
 export interface BuildingMap {
   [id: string]: Building
 }
@@ -23,8 +33,22 @@ export interface Deposit {
   processing: number
 }
 
+// sameDeposit returns a clone of a deposit.
+export function sameDeposit(deposit: Deposit): Deposit {
+  return {
+    id: deposit.id,
+    amount: deposit.amount,
+    harvested: deposit.harvested,
+    processing: deposit.processing
+  }
+}
+
 export interface DepositMap {
   [id: string]: Deposit
+}
+
+export function mapDeposits(deposits: DepositMap, f?: (deposit: Deposit) => Deposit): DepositMap {
+  return map<Deposit>(deposits, sameDeposit, f)
 }
 
 export interface Resource {
@@ -34,6 +58,37 @@ export interface Resource {
   visible: boolean
 }
 
+// sameResource returns a clone of a resource.
+export function sameResource(resource: Resource): Resource {
+  return {
+    id: resource.id,
+    amount: resource.amount,
+    spent: resource.spent,
+    visible: resource.visible
+  }
+}
+
 export interface ResourceMap {
   [id: string]: Resource
+}
+
+export function mapResources(resources: ResourceMap, f?: (resource: Resource) => Resource): ResourceMap {
+  return map<Resource>(resources, sameResource, f)
+}
+
+function map<T>(input: MyMap<T>, defaultF: (t: T) => T, f?: (t: T) => T): MyMap<T> {
+  if (f === undefined) {
+    f = defaultF
+  }
+  const output: MyMap<T> = {}
+  Object.keys(input).forEach(
+      (id) => {
+          output[id] = f(input[id])
+      }
+  )
+  return output
+}
+
+interface MyMap<T> {
+    [id: string]: T
 }
