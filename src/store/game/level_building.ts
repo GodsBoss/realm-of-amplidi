@@ -1,7 +1,7 @@
 import { Action } from './action'
 import { find } from '../../util'
 import { Cost, Game, Building as GameBuilding, ResourceAmounts } from './template'
-import { Building, BuildingMap, Resource, ResourceMap, State, withSpent, sameResource, mapResources } from './state'
+import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, Resource, ResourceMap, State, withSpent, sameResource, mapResources } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
   id: string
@@ -48,20 +48,8 @@ function subtractCosts(resources: ResourceMap, cost: ResourceAmounts): ResourceM
 }
 
 function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {
-  const result: BuildingMap = {}
-  Object.keys(buildings).forEach(
-    (currentID) => {
-      if (currentID === id) {
-        result[currentID] = {
-          id: id,
-          level: buildings[id].level + 1,
-          visible: buildings[id].visible,
-          available: buildings[id].available
-        }
-      } else {
-        result[currentID] = buildings[currentID]
-      }
-    }
+  return mapBuildings(
+    buildings,
+    (building) => building.id === id ? withLevelUps(1)(building) : sameBuilding(building)
   )
-  return result
 }

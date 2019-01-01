@@ -22,8 +22,24 @@ export function sameBuilding(building: Building): Building {
   }
 }
 
+// withLevelUp returns a function which upgrades the level of a building by n.
+export function withLevelUps(n: number): (building: Building) => Building {
+  return (building: Building) => {
+    return {
+      id: building.id,
+      level: building.level + n,
+      visible: building.visible,
+      available: building.available
+    }
+  }
+}
+
 export interface BuildingMap {
   [id: string]: Building
+}
+
+export function mapBuildings(buildings: BuildingMap, f?: (building: Building) => Building): BuildingMap {
+  return map<Building>(buildings, sameBuilding, f)
 }
 
 export interface Deposit {
