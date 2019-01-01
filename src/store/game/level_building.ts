@@ -1,7 +1,7 @@
 import { Action } from './action'
 import { find } from '../../util'
 import { Cost, Game, Building as GameBuilding, ResourceAmounts } from './template'
-import { Building, BuildingMap, Resource, ResourceMap, State } from './state'
+import { Building, BuildingMap, Resource, ResourceMap, State, withSpent, sameResource, mapResources } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
   id: string
@@ -41,22 +41,10 @@ function enoughResources(resources: ResourceMap, cost: ResourceAmounts): boolean
 }
 
 function subtractCosts(resources: ResourceMap, cost: ResourceAmounts): ResourceMap {
-  const result: ResourceMap = {}
-  Object.keys(resources).forEach(
-    (id) => {
-      if (typeof cost[id] === "undefined") {
-        result[id] = resources[id]
-      } else {
-        result[id] = {
-          id: id,
-          amount: resources[id].amount - cost[id],
-          spent: resources[id].spent + cost[id],
-          visible: resources[id].visible
-        }
-      }
-    }
+  return mapResources(
+    resources,
+    (resource: Resource): Resource => cost[resource.id] === undefined ? sameResource(resource) : withSpent(cost[resource.id])(resource)
   )
-  return result
 }
 
 function withLeveledBuilding(buildings: BuildingMap, id: string): BuildingMap {

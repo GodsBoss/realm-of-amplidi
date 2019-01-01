@@ -68,6 +68,20 @@ export function sameResource(resource: Resource): Resource {
   }
 }
 
+// withSpent creates a function which creates a new resource from an existing
+// resource, but with the amount decreased and the spent property increased by
+// the give amount.
+export function withSpent(amount: number): (resource: Resource) => Resource {
+  return (resource: Resource): Resource => {
+    return {
+      id: resource.id,
+      amount: resource.amount - amount,
+      spent: resource.spent + amount,
+      visible: resource.visible
+    }
+  }
+}
+
 export interface ResourceMap {
   [id: string]: Resource
 }
