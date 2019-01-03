@@ -6,12 +6,15 @@ export interface Game {
   resources: Resource[];
 }
 
+interface Identifyable<IDType extends string> {
+  id: IDType
+}
+
 export type DepositID = string
 
 export type ProcessingID = string
 
-export interface Deposit {
-  id: DepositID
+export interface Deposit extends Identifyable<DepositID>{
   name: string
   initialAmount: number
   processedBy: ProcessingID[]
@@ -26,8 +29,7 @@ export interface DepositAmounts {
 
 export type ResourceID = string
 
-export interface Resource {
-  id: ResourceID
+export interface Resource extends Identifyable<ResourceID>{
   name: string
   initialAmount: number
   visible: Requirement
@@ -39,8 +41,7 @@ export interface ResourceAmounts {
 
 export type BuildingID = string
 
-export interface Building {
-  id: BuildingID
+export interface Building extends Identifyable<BuildingID>{
   name: string
   initialLevel: number
 
