@@ -68,14 +68,67 @@ export const RealmOfAmplidi: Game = {
       id: "quarry",
       name: "Quarry",
       initialLevel: 0,
-      levels: [
-        {
-          available: false,
-          visible: false,
-          cost: {},
-          benefits: []
-        }
-      ]
+      levels: [].concat(
+        [
+          isBuildingLevel(
+            {
+              available: true,
+              visible: {
+                "type": "comparison",
+                "op": ">=",
+                "left": {
+                  "type": "building.level",
+                  "id": "sawmill"
+                },
+                "right": 1
+              },
+              cost: {
+                "oak_wood": 100
+              },
+              benefits: [
+                {
+                  "type": "processing",
+                  "amounts": {
+                    "quarry": 2
+                  }
+                },
+                {
+                  "type": "deposit",
+                  "amounts": {
+                    "rock": 1
+                  }
+                }
+              ]
+            }
+          )
+        ],
+        range(2, 3).map(
+          (n): BuildingLevel => (
+            {
+              available: true,
+              visible: true,
+              cost: {
+                "oak_wood": 100 + 50 * n,
+                "stone": 25 * n
+              },
+              benefits: [
+                {
+                  "type": "processing",
+                  "amounts": {
+                    "quarry": 2
+                  }
+                },
+                {
+                  "type": "deposit",
+                  "amounts": {
+                    "rock": 1
+                  }
+                }
+              ]
+            }
+          )
+        )
+      )
     },
     {
       id: "sawmill",
@@ -144,14 +197,14 @@ export const RealmOfAmplidi: Game = {
       id: "granite",
       name: "Granite",
       initialAmount: 0,
-      processedBy: [],
+      processedBy: ["quarry"],
       resourceID: "granite"
     },
     {
       id: "marble",
       name: "Marble",
       initialAmount: 0,
-      processedBy: [],
+      processedBy: ["quarry"],
       resourceID: "marble"
     },
     {
@@ -165,7 +218,7 @@ export const RealmOfAmplidi: Game = {
       id: "rock",
       name: "Rock",
       initialAmount: 0,
-      processedBy: [],
+      processedBy: ["quarry"],
       resourceID: "stone"
     }
   ],
@@ -206,12 +259,12 @@ export const RealmOfAmplidi: Game = {
       initialAmount: 0,
       visible: {
         "type": "comparison",
-        "op": ">",
+        "op": ">=",
         "left": {
-          "type": "resource.amount",
-          "id": "clay"
+          "type": "building.level",
+          "id": "quarry"
         },
-        "right": 100
+        "right": 1
       }
     }
   ]
