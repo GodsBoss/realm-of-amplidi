@@ -77,6 +77,27 @@ export interface BuildingLevel {
   benefits: Benefits[]
 }
 
+// buildingBenefits returns the benefits a building provides at the given level
+// as a flat list.
+export function buildingBenefits(building: Building, level: number): Benefits[] {
+  return flattenBenefits(
+    building.levels.filter(
+      (_, index: number) => index < level
+    ).map(
+      (bl) => bl.benefits
+    )
+  )
+}
+
+// flattenBenefits takes a list of lists of benefits and flattens them into a
+// list of benefits.
+export function flattenBenefits(benefitLists: Benefits[][]): Benefits[] {
+  return benefitLists.reduce(
+    (acc, curr) => acc.concat(curr),
+    []
+  )
+}
+
 export type Requirement = boolean | ComparisonRequirement | MultiRequirement
 
 export function isConstantRequirement(value: Requirement): value is boolean {

@@ -1,5 +1,5 @@
 import { Action } from './action'
-import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID } from './template'
+import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID, flattenBenefits, buildingBenefits } from './template'
 import { State, DepositMap, ResourceMap, mapDeposits, mapResources } from './state'
 import { find } from '../../util'
 
@@ -38,17 +38,15 @@ const withIncreasedDeposits = (game: Game) => (state: State): State => {
     buildings: state.buildings,
     deposits: addDeposits(
       state.deposits,
-      game.buildings.map(
-        (building) => building.levels.filter(
-          (level, index) => index < state.buildings[building.id].level
-        ).map(
-          (level) => level.benefits.filter(
-            (benefit) => benefit.type === 'deposit'
-          ).map(
-            (benefit) => <DepositAmounts>benefit.amounts
-          )
-        ).reduce(flatten, [])
-      ).reduce(flatten, [])
+      flattenBenefits(
+        game.buildings.map(
+          (building) => buildingBenefits(building, state.buildings[building.id].level)
+        )
+      ).filter(
+        (benefit) => benefit.type === 'deposit'
+      ).map(
+        (benefit) => <DepositAmounts>benefit.amounts
+      )
     ),
     resources: state.resources
   }
@@ -87,17 +85,15 @@ const withIncreasedResources = (game: Game) => (state: State): State => {
     deposits: state.deposits,
     resources: addResources(
       state.resources,
-      game.buildings.map(
-        (building) => building.levels.filter(
-          (level, index) => index < state.buildings[building.id].level
-        ).map(
-          (level) => level.benefits.filter(
-            (benefit) => benefit.type === 'resource'
-          ).map(
-            (benefit) => <ResourceAmounts>benefit.amounts
-          )
-        ).reduce(flatten, [])
-      ).reduce(flatten, [])
+      flattenBenefits(
+        game.buildings.map(
+          (building) => buildingBenefits(building, state.buildings[building.id].level)
+        )
+      ).filter(
+        (benefit) => benefit.type === 'resource'
+      ).map(
+        (benefit) => <ResourceAmounts>benefit.amounts
+      )
     )
   }
 }
@@ -138,17 +134,15 @@ const withProcessedDeposits = (game: Game) => (state: State): State => {
   // processing are the combined processing amounts of all benefits the player
   // gets via buildings.
   // TODO: Gathering and flattening benefits seems to reoccur, move elsewhere.
-  const processing = game.buildings.map(
-    (building) => building.levels.filter(
-      (level, index) => index < state.buildings[building.id].level
-    ).map(
-      (level) => level.benefits.filter(
-        (benefit) => benefit.type === 'processing'
-      ).map(
-        (benefit) => <ProcessingAmounts>benefit.amounts
-      )
-    ).reduce(flatten, [])
-  ).reduce(flatten, []).reduce(
+  const processing = flattenBenefits(
+    game.buildings.map(
+      (building) => buildingBenefits(building, state.buildings[building.id].level)
+    )
+  ).filter(
+    (benefit) => benefit.type === 'processing'
+  ).map(
+    (benefit) => <ProcessingAmounts>benefit.amounts
+  ).reduce(
     (previous: ProcessingAmounts, current: ProcessingAmounts) => {
       Object.keys(current).forEach(
         (id) => {
