@@ -31,6 +31,81 @@ export const RealmOfAmplidi: Game = {
       ),
     },
     {
+      id: "mine",
+      name: "Mine",
+      initialLevel: 0,
+      levels: [].concat(
+        range(1, 3).map(
+          (level: number): BuildingLevel => (
+            {
+              available: true,
+              visible: {
+                type: "comparison",
+                op: ">=",
+                left: {
+                  type: "building.level",
+                  id: "quarry"
+                },
+                right: 1
+              },
+              cost: {
+                "oak_wood": square(level) * 20,
+                "stone": square(level) * 20
+              },
+              benefits: [
+                {
+                  type: "processing",
+                  amounts: {
+                    "excavate": 2
+                  }
+                }
+              ]
+            }
+          )
+        ),
+        range(4, 6).map(
+          (level: number): BuildingLevel => (
+            {
+              available: true,
+              visible: false,
+              cost: {
+                "marble": square(level-3) * 20,
+                "pine_wood": square(level-3) * 20
+              },
+              benefits: [
+                {
+                  type: "processing",
+                  amounts: {
+                    "excavate": 1
+                  }
+                }
+              ]
+            }
+          )
+        ),
+        range(7, 9).map(
+          (level: number): BuildingLevel => (
+            {
+              available: true,
+              visible: false,
+              cost: {
+                "granite": square(level-6) * 20,
+                "hardwood": square(level-6) * 20
+              },
+              benefits: [
+                {
+                  type: "processing",
+                  amounts: {
+                    "excavate": 1
+                  }
+                }
+              ]
+            }
+          )
+        )
+      )
+    },
+    {
       id: "oak_forester",
       name: "Oak Forester",
       initialLevel: 0,
