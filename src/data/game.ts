@@ -269,11 +269,25 @@ export const RealmOfAmplidi: Game = {
       resourceID: "hardwood"
     },
     {
+      id: "gold_ore",
+      name: "Gold Ore",
+      initialAmount: 0,
+      processedBy: ["excavate"],
+      resourceID: "gold"
+    },
+    {
       id: "granite",
       name: "Granite",
       initialAmount: 0,
       processedBy: ["quarry"],
       resourceID: "granite"
+    },
+    {
+      id: "iron_ore",
+      name: "Iron Ore",
+      initialAmount: 0,
+      processedBy: ["excavate"],
+      resourceID: "Iron"
     },
     {
       id: "marble",
@@ -312,6 +326,12 @@ export const RealmOfAmplidi: Game = {
       visible: true
     },
     {
+      id: "gold",
+      name: "Gold",
+      initialAmount: 0,
+      visible: false
+    },
+    {
       id: "granite",
       name: "Granite",
       initialAmount: 0,
@@ -320,6 +340,12 @@ export const RealmOfAmplidi: Game = {
     {
       id: "hardwood",
       name: "Hardwood",
+      initialAmount: 0,
+      visible: false
+    },
+    {
+      id: "iron",
+      name: "Iron",
       initialAmount: 0,
       visible: false
     },
