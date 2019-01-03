@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { find } from '../../util'
-import { Cost, Game, Building as GameBuilding, ResourceAmounts } from './template'
+import { Cost, Game, Building as GameBuilding, ResourceAmounts, toByID } from './template'
 import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, Resource, ResourceMap, State, withSpent, sameResource, mapResources } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
@@ -15,13 +15,9 @@ export function createLevelBuildingAction(id: string): LevelBuildingAction {
 }
 
 export function levelBuilding(game: Game) {
+  const buildingsByID = toByID(game.buildings)
   return function(state: State, action: LevelBuildingAction): State {
-    const currBuilding = state.buildings[action.id]
-    const gameBuilding = find(
-      game.buildings,
-      (b: GameBuilding) => b.id === action.id
-    )
-    const cost = gameBuilding.levels[currBuilding.level].cost
+    const cost = buildingsByID[action.id].levels[state.buildings[action.id].level].cost
     if (enoughResources(state.resources, cost)) {
       return {
         turn: state.turn,
