@@ -134,6 +134,20 @@ export const RealmOfAmplidi: Game = {
   ],
   deposits: [
     {
+      id: "granite",
+      name: "Granite",
+      initialAmount: 0,
+      processedBy: [],
+      resourceID: "granite"
+    },
+    {
+      id: "marble",
+      name: "Marble",
+      initialAmount: 0,
+      processedBy: [],
+      resourceID: "marble"
+    },
+    {
       id: "oak_tree",
       name: "Oak Tree",
       initialAmount: 100,
@@ -154,6 +168,18 @@ export const RealmOfAmplidi: Game = {
       name: "Clay",
       initialAmount: 50,
       visible: true
+    },
+    {
+      id: "granite",
+      name: "Granite",
+      initialAmount: 0,
+      visible: false
+    },
+    {
+      id: "marble",
+      name: "Marble",
+      initialAmount: 0,
+      visible: false
     },
     {
       id: "oak_wood",
