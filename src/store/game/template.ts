@@ -10,6 +10,21 @@ interface Identifyable<IDType extends string> {
   id: IDType
 }
 
+interface byIDMap<IDType extends string, T extends Identifyable<IDType>> {
+  [id: string]: T
+}
+
+// toByID takes a list of identifyable objects and creates a map with the objects' IDs as keys.
+export function toByID<IDType extends string, T extends Identifyable<IDType>>(list: T[]): byIDMap<IDType, T> {
+  const m: byIDMap<IDType, T> = {}
+  list.forEach(
+    (obj) => {
+      m[obj.id] = obj
+    }
+  )
+  return m
+}
+
 export type DepositID = string
 
 export type ProcessingID = string
