@@ -215,6 +215,13 @@ export const RealmOfAmplidi: Game = {
       resourceID: "oak_wood"
     },
     {
+      id: "pine_tree",
+      name: "Pine tree",
+      initialAmount: 0,
+      processedBy: ["chopping"],
+      resourceID: "pine_wood"
+    },
+    {
       id: "rock",
       name: "Rock",
       initialAmount: 0,
@@ -252,6 +259,12 @@ export const RealmOfAmplidi: Game = {
       name: "Oak Wood",
       initialAmount: 0,
       visible: true
+    },
+    {
+      id: "pine_wood",
+      name: "Pine Wood",
+      initialAmount: 0,
+      visible: false
     },
     {
       id: "stone",
