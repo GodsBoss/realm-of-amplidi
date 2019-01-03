@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID, flattenBenefits, buildingBenefits } from './template'
-import { State, DepositMap, ResourceMap, mapDeposits, mapResources } from './state'
+import { State, DepositMap, ResourceMap, mapDeposits, mapResources, sameDeposit, sameResource } from './state'
 import { find } from '../../util'
 
 export interface NextTurnAction extends Action<"@game/next_turn">{
@@ -58,12 +58,7 @@ export function addDeposits(map: DepositMap, list: DepositAmounts[]): DepositMap
   const result: DepositMap = {}
   Object.keys(map).forEach(
     (id) => {
-      result[id] = {
-        id: id,
-        amount: map[id].amount,
-        harvested: map[id].harvested,
-        processing: map[id].processing
-      }
+      result[id] = sameDeposit(map[id])
     }
   )
   list.forEach(
@@ -102,12 +97,7 @@ function addResources(map: ResourceMap, list: ResourceAmounts[]): ResourceMap {
   const result: ResourceMap = {}
   Object.keys(map).forEach(
     (id) => {
-      result[id] = {
-        id: id,
-        amount: map[id].amount,
-        spent: map[id].spent,
-        visible: map[id].visible
-      }
+      result[id] = sameResource(map[id])
     }
   )
   list.forEach(
