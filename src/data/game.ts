@@ -287,7 +287,7 @@ export const RealmOfAmplidi: Game = {
       name: "Iron Ore",
       initialAmount: 0,
       processedBy: ["excavate"],
-      resourceID: "Iron"
+      resourceID: "iron"
     },
     {
       id: "marble",
