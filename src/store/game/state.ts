@@ -1,3 +1,5 @@
+import { ResourceAmounts } from './template'
+
 export interface State {
   turn: number
   buildings: BuildingMap
@@ -96,6 +98,14 @@ export function withSpent(amount: number): (resource: Resource) => Resource {
       visible: resource.visible
     }
   }
+}
+
+// withCostsSubtracted returns the resources minus the costs.
+export function withCostsSubtracted(resources: ResourceMap, cost: ResourceAmounts): ResourceMap {
+  return mapResources(
+    resources,
+    (resource: Resource): Resource => cost[resource.id] === undefined ? sameResource(resource) : withSpent(cost[resource.id])(resource)
+  )
 }
 
 export interface ResourceMap {

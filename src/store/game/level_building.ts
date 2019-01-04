@@ -1,7 +1,7 @@
 import { Action } from './action'
 import { find } from '../../util'
 import { Cost, Game, Building as GameBuilding, ResourceAmounts, toByID } from './template'
-import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, Resource, ResourceMap, State, withSpent, sameResource, mapResources } from './state'
+import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, Resource, ResourceMap, State, withCostsSubtracted } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{
   id: string
@@ -23,7 +23,7 @@ export function levelBuilding(game: Game) {
         turn: state.turn,
         deposits: state.deposits,
         buildings: withLeveledBuilding(state.buildings, action.id),
-        resources: subtractCosts(state.resources, cost)
+        resources: withCostsSubtracted(state.resources, cost)
       }
     }
     return state
@@ -33,13 +33,6 @@ export function levelBuilding(game: Game) {
 function enoughResources(resources: ResourceMap, cost: ResourceAmounts): boolean {
   return Object.keys(cost).every(
     (id: string): boolean => cost[id] <= resources[id].amount
-  )
-}
-
-function subtractCosts(resources: ResourceMap, cost: ResourceAmounts): ResourceMap {
-  return mapResources(
-    resources,
-    (resource: Resource): Resource => cost[resource.id] === undefined ? sameResource(resource) : withSpent(cost[resource.id])(resource)
   )
 }
 
