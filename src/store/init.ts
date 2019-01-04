@@ -1,4 +1,4 @@
-import { State as GameState } from './game/state'
+import { State } from './game/state'
 import { initialState } from './game/init'
 import { Game } from './game/template'
 import { levelBuilding, LevelBuildingAction } from './game/level_building'
@@ -12,19 +12,13 @@ export function create(game: Game): (state: State, action: Action) => State {
   const aftermath = wrap(withXabilities(game))
   return function(state: State, action: Action) {
     if (state === undefined) {
-      return {
-        game: aftermath(initialState(game))
-      }
+      return aftermath(initialState(game))
     }
     switch (action.type) {
       case "@game/next_turn":
-        return {
-          game: aftermath(nextTurnFunc(state.game, action))
-        }
+        return aftermath(nextTurnFunc(state, action))
       case "@game/level_building":
-        return {
-          game: aftermath(levelBuildingFunc(state.game, action))
-        }
+        return aftermath(levelBuildingFunc(state, action))
       default:
         raiseInvalidAction(action)
     }
@@ -37,7 +31,3 @@ function raiseInvalidAction(value: never) {
 }
 
 type Action = NextTurnAction | LevelBuildingAction
-
-export interface State {
-  game: GameState
-}
