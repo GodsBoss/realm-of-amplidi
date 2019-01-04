@@ -2,6 +2,7 @@ export interface Game {
   buildings: Building[];
   deposits: Deposit[];
   resources: Resource[];
+  units: Unit[];
 }
 
 interface Identifyable<IDType extends string> {

@@ -381,7 +381,8 @@ export const RealmOfAmplidi: Game = {
         "right": 1
       }
     }
-  ]
+  ],
+  units: []
 }
 
 // range creates an array containing the numbers start to end (both inclusive).
