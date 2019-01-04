@@ -108,6 +108,12 @@ export function withCostsSubtracted(resources: ResourceMap, cost: ResourceAmount
   )
 }
 
+export function enoughResources(resources: ResourceMap, cost: ResourceAmounts): boolean {
+  return Object.keys(cost).every(
+    (id: string): boolean => cost[id] <= resources[id].amount
+  )
+}
+
 export interface ResourceMap {
   [id: string]: Resource
 }
