@@ -1,5 +1,3 @@
-import { State } from './state'
-
 export interface Game {
   buildings: Building[];
   deposits: Deposit[];
