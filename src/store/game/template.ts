@@ -220,3 +220,18 @@ export type Benefits = DepositBenefit|ResourceBenefit|ProcessingBenefit
 export interface Cost {
   [resourceID: string]: number
 }
+
+export type UnitID = string
+
+export type UnitTag = string
+
+export type UnitTags = UnitTag[]
+
+export interface Unit extends Identifyable<UnitID>{
+  name: string
+  strength: number
+  tags: UnitTags
+  visible: Requirement
+  available: Requirement
+  cost: ResourceAmounts
+}
