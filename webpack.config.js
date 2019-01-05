@@ -4,7 +4,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.tsx',
+  entry: {
+    "game": './src/index.tsx'
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     host: '0.0.0.0'
@@ -13,7 +15,11 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin(
       {
-        title: 'Realm of Amplidi'
+        title: 'Realm of Amplidi',
+        filename: 'index.html',
+        chunks: [
+          'game'
+        ]
       }
     )
   ],
