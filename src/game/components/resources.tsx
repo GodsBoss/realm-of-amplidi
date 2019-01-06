@@ -1,5 +1,5 @@
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
-import { Resource as ResourceTemplate } from '../store/game/template'
+import { Resource as ResourceTemplate } from '../../common/template'
 import { Resource as ResourceValue } from '../store/game/state'
 
 export const Resources = ({ list, values }: { list: ResourceTemplate[], values: { [id: string]: ResourceValue }}) => (

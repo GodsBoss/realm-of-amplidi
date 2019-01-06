@@ -12,7 +12,7 @@ import {
   isResourceAmountStateValue,
   isResourceSpentStateValue,
   isMultiRequirement
-} from './template'
+} from '../../../common/template'
 
 export function fullfilled(requirement: Requirement, state: State): boolean {
   if (isConstantRequirement(requirement)) {

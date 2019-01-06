@@ -1,7 +1,7 @@
 import { fullfilled } from './check_requirements'
 import { find } from '../../../common/util'
 import { State, BuildingMap, ResourceMap } from './state'
-import { Game } from './template'
+import { Game } from '../../../common/template'
 
 export const withXabilities = (game: Game) => (state: State): State => {
   const buildings: BuildingMap = {}

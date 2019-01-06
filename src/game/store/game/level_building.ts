@@ -1,6 +1,6 @@
 import { Action } from './action'
 import { find } from '../../../common/util'
-import { Cost, Game, Building as GameBuilding, ResourceAmounts, toByID } from './template'
+import { Cost, Game, Building as GameBuilding, ResourceAmounts, toByID } from '../../../common/template'
 import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, State, withCostsSubtracted, enoughResources } from './state'
 
 export interface LevelBuildingAction extends Action<"@game/level_building">{

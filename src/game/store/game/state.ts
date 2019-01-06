@@ -1,4 +1,4 @@
-import { ResourceAmounts } from './template'
+import { ResourceAmounts } from '../../../common/template'
 
 export interface State {
   turn: number

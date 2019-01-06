@@ -1,4 +1,4 @@
-import { Building as BuildingTemplate, Game, toByID } from '../store/game/template'
+import { Building as BuildingTemplate, Game, toByID } from '../../common/template'
 import { BuildingMap, Building as BuildingValue } from '../store/game/state'
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 

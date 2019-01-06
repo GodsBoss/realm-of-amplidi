@@ -2,7 +2,7 @@ import { Buildings } from './buildings'
 import { Deposits } from './deposits'
 import { Resources } from './resources'
 import { State } from '../store/game/state'
-import { Game as GameTemplate } from '../store/game/template'
+import { Game as GameTemplate } from '../../common/template'
 
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 

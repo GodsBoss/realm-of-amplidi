@@ -1,4 +1,4 @@
-import { Deposit as DepositTemplate } from '../store/game/template'
+import { Deposit as DepositTemplate } from '../../common/template'
 import { DepositMap, Deposit as DepositValue } from '../store/game/state'
 import * as React from 'react' // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5128
 

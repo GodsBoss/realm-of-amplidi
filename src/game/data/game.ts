@@ -1,5 +1,5 @@
-import { Cost } from '../store/game/template'
-import { Game, BuildingLevel } from '../store/game/template'
+import { Cost } from '../../common/template'
+import { Game, BuildingLevel } from '../../common/template'
 import { State } from '../store/game/state'
 
 export const RealmOfAmplidi: Game = {

@@ -1,6 +1,6 @@
 import { Game as GameComp} from '../components/game'
 import { createLevelBuildingAction } from '../store/game/level_building'
-import { Game as GameTemplate } from '../store/game/template'
+import { Game as GameTemplate } from '../../common/template'
 import { createNextTurnAction } from '../store/game/turn'
 
 import { connect } from 'react-redux'

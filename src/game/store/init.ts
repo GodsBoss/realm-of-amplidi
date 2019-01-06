@@ -1,6 +1,6 @@
 import { State } from './game/state'
 import { initialState } from './game/init'
-import { Game } from './game/template'
+import { Game } from '../../common/template'
 import { levelBuilding, LevelBuildingAction } from './game/level_building'
 import { nextTurn, NextTurnAction } from './game/turn'
 import { wrap } from './game/wrap'

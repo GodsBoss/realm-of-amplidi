@@ -1,5 +1,5 @@
 import { Action } from './action'
-import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID, flattenBenefits, buildingBenefits } from './template'
+import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID, flattenBenefits, buildingBenefits } from '../../../common/template'
 import { State, DepositMap, ResourceMap, mapDeposits, mapResources, sameDeposit, sameResource } from './state'
 import { find } from '../../../common/util'
 

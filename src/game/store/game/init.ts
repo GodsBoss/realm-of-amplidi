@@ -1,5 +1,5 @@
 import { State, BuildingMap, DepositMap, Resource as ResourceValue, ResourceMap } from './state'
-import { Game, Building as BuildingTemplate, Deposit as DepositTemplate, Resource as ResourceTemplate } from './template'
+import { Game, Building as BuildingTemplate, Deposit as DepositTemplate, Resource as ResourceTemplate } from '../../../common/template'
 
 export function initialState(game: Game): State {
   return {
