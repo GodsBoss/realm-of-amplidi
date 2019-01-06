@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
+    "editor": './src/editor/index.tsx',
     "game": './src/index.tsx'
   },
   devServer: {
@@ -28,6 +29,15 @@ module.exports = {
         filename: 'index.html',
         chunks: [
           'game'
+        ]
+      }
+    ),
+    new HtmlWebpackPlugin(
+      {
+        title: 'Realm of Amplidi - Editor',
+        filename: 'editor.html',
+        chunks: [
+          'editor'
         ]
       }
     )
