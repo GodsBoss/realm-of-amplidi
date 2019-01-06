@@ -1,5 +1,5 @@
 import { Action } from './action'
-import { find } from '../../util'
+import { find } from '../../../common/util'
 import { Cost, Game, Building as GameBuilding, ResourceAmounts, toByID } from './template'
 import { Building, BuildingMap, mapBuildings, sameBuilding, withLevelUps, State, withCostsSubtracted, enoughResources } from './state'
 

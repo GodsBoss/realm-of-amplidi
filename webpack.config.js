@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: {
     "editor": './src/editor/index.tsx',
-    "game": './src/index.tsx'
+    "game": './src/game/index.tsx'
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -18,7 +18,7 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
-          from: "src/data/game.json",
+          from: "src/game/data/game.json",
           to: "game.json"
         }
       ]

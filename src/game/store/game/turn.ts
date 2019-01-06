@@ -1,7 +1,7 @@
 import { Action } from './action'
 import { Game, DepositAmounts, ResourceAmounts, ProcessingAmounts, DepositID, flattenBenefits, buildingBenefits } from './template'
 import { State, DepositMap, ResourceMap, mapDeposits, mapResources, sameDeposit, sameResource } from './state'
-import { find } from '../../util'
+import { find } from '../../../common/util'
 
 export interface NextTurnAction extends Action<"@game/next_turn">{
   payload: null
